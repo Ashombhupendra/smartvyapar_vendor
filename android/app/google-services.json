@@ -1,0 +1,124 @@
+{
+  "project_info": {
+    "project_number": "996442516867",
+    "project_id": "smartvyapaar2025",
+    "storage_bucket": "smartvyapaar2025.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996442516867:android:645a1e5aaa5818b22a9ab6",
+        "android_client_info": {
+          "package_name": "com.dbvertex.deliveryboy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz0lqa3F9zXpfvW12O3zQIpT0iEkraYCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996442516867:android:31b5849ec352b4922a9ab6",
+        "android_client_info": {
+          "package_name": "com.dbvertex.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz0lqa3F9zXpfvW12O3zQIpT0iEkraYCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996442516867:android:b3f6f43baf2f8e342a9ab6",
+        "android_client_info": {
+          "package_name": "com.dbvertex.vendorApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz0lqa3F9zXpfvW12O3zQIpT0iEkraYCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996442516867:android:04cb9dda687275842a9ab6",
+        "android_client_info": {
+          "package_name": "com.smartvyapaar.deliveryboy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz0lqa3F9zXpfvW12O3zQIpT0iEkraYCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996442516867:android:d602deb11ee2fd342a9ab6",
+        "android_client_info": {
+          "package_name": "com.smartvyapaar.user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz0lqa3F9zXpfvW12O3zQIpT0iEkraYCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:996442516867:android:354dc3add33fcad22a9ab6",
+        "android_client_info": {
+          "package_name": "com.smartvyapaar.vendor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz0lqa3F9zXpfvW12O3zQIpT0iEkraYCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

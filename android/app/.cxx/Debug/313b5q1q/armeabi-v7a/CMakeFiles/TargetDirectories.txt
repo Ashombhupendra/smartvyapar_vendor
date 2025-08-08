@@ -1,0 +1,2 @@
+C:/Users/andro/AndroidStudioProjects/Gadge_yash/VendorApp/Vendor app/Vendor app/android/app/.cxx/Debug/313b5q1q/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/andro/AndroidStudioProjects/Gadge_yash/VendorApp/Vendor app/Vendor app/android/app/.cxx/Debug/313b5q1q/armeabi-v7a/CMakeFiles/rebuild_cache.dir

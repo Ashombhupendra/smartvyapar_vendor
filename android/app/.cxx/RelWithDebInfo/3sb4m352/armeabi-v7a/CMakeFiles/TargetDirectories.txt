@@ -1,0 +1,2 @@
+/Users/admin/Documents/fabricasst/codecanyon-RC0Lx3Lb-6ammart-store-app/Vendor app/android/app/.cxx/RelWithDebInfo/3sb4m352/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/admin/Documents/fabricasst/codecanyon-RC0Lx3Lb-6ammart-store-app/Vendor app/android/app/.cxx/RelWithDebInfo/3sb4m352/armeabi-v7a/CMakeFiles/rebuild_cache.dir

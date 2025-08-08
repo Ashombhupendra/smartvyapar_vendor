@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/admin/development/flutterLetest/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/admin/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/admin/Documents/fabricasst/codecanyon-RC0Lx3Lb-6ammart-store-app/Vendor app/android/app/.cxx/Debug/3v5g1m5v/arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/admin/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/admin/Documents/fabricasst/codecanyon-RC0Lx3Lb-6ammart-store-app/Vendor app/android/app/.cxx/Debug/3v5g1m5v/arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}
