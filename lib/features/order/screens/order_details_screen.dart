@@ -662,13 +662,15 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with WidgetsBin
                   ),
 
                   order.paymentMethod == 'partial_payment' ? DottedBorder(
-                    color: Theme.of(context).primaryColor,
-                    strokeWidth: 1,
-                    strokeCap: StrokeCap.butt,
-                    dashPattern: const [8, 5],
-                    padding: const EdgeInsets.all(0),
-                    borderType: BorderType.RRect,
-                    radius: const Radius.circular(Dimensions.radiusDefault),
+                    options: RectDottedBorderOptions(
+                      color: Theme.of(context).primaryColor,
+                      strokeWidth: 1,
+                      strokeCap: StrokeCap.butt,
+                      dashPattern: const [8, 5],
+                      padding: const EdgeInsets.all(0),
+                      //borderType: BorderType.RRect,
+                      //radius: const Radius.circular(Dimensions.radiusDefault),
+                    ),
                     child: Ink(
                       padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
                       color: restConfModel ? Theme.of(context).primaryColor.withValues(alpha: 0.05) : Colors.transparent,

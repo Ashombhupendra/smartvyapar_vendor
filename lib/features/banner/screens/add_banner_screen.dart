@@ -173,10 +173,12 @@ class _AddBannerScreenState extends State<AddBannerScreen> with TickerProviderSt
                       child: Column(children: [
 
                         DottedBorder(
-                          color: Theme.of(context).disabledColor.withValues(alpha: 0.5),
-                          strokeWidth: 1,
-                          borderType: BorderType.RRect,
-                          radius: const Radius.circular(Dimensions.radiusSmall),
+                         options: RectDottedBorderOptions(
+                           color: Theme.of(context).disabledColor.withValues(alpha: 0.5),
+                           strokeWidth: 1,
+                           //borderType: BorderType.RRect,
+                           //radius: const Radius.circular(Dimensions.radiusSmall),
+                         ),
                           child: SizedBox(
                             height: 125, width: Get.width,
                             child: Align(

@@ -21,11 +21,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sixam_mart_store/features/store/domain/services/store_service_interface.dart';
+import 'package:sixam_mart_store/util/helper/v_logger.dart';
 
 class StoreController extends GetxController implements GetxService {
   final StoreServiceInterface storeServiceInterface;
   StoreController({required this.storeServiceInterface});
-
+  bool _isPickingImage = false;
+  bool get isPickingImage => _isPickingImage;
   List<Item>? _itemList;
   List<Item>? get itemList => _itemList;
 
@@ -534,15 +536,85 @@ class StoreController extends GetxController implements GetxService {
     _isLoading = false;
     update();
   }
+  Future<void> showImageSourceBottomSheet({required bool isThumbnail}) async {
+    if (_isPickingImage) return;
+    _isPickingImage = true;
+    update();
 
-  void pickImage(bool isLogo, bool isRemove) async {
-    if(isRemove) {
-      _rawLogo = null;
-      _rawCover = null;
-    }else {
-      isLogo ? _rawLogo = await storeServiceInterface.pickImageFromGallery() : _rawCover = await storeServiceInterface.pickImageFromGallery();
+    await showModalBottomSheet(
+      context: Get.context!,
+      useSafeArea: true,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: Theme.of(Get.context!).cardColor,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera_alt, color: Color(0xFF093050)),
+                title: Text('camera'.tr),
+                onTap: () => _pickImage(ImageSource.camera, isThumbnail),
+              ),
+              ListTile(
+                leading: const Icon(Icons.photo_library, color: Color(0xFF093050)),
+                title: Text('gallery'.tr),
+                onTap: () => _pickImage(ImageSource.gallery, isThumbnail),
+              ),
+              // ListTile(
+              //   leading: const Icon(Icons.close, color: Colors.red),
+              //   title: Text('cancel'.tr),
+              //   onTap: () => Get.back(),
+              // ),
+            ],
+          ),
+        );
+      },
+    );
+
+    _isPickingImage = false;
+    update();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!isClosed) {
+        update();
+      }
+    });
+  }
+  // Helper for Picking (private)
+  Future<void> _pickImage(ImageSource source, bool isThumbnail) async {
+    Get.back();  // Close sheet
+    XFile? pickedFile = await storeServiceInterface.pickImage(source);
+    if (pickedFile != null) {
+      if (isThumbnail) {
+        _rawLogo = pickedFile;
+      } else {
+        _rawImages.add(pickedFile);
+      }
       update();
     }
+    FocusScope.of(Get.context!).unfocus();
+  }
+  // void pickImage(bool isLogo, bool isRemove) async {
+  //   if(isRemove) {
+  //     _rawLogo = null;
+  //     _rawCover = null;
+  //   }else {
+  //     isLogo ? _rawLogo = await storeServiceInterface.pickImageFromGallery() : _rawCover = await storeServiceInterface.pickImageFromGallery();
+  //     update();
+  //   }
+  // }
+// Update pickImage (thumbnail/cover)
+  Future<void> pickImage(bool isLogo, bool isRemove) async {
+    if (isRemove) {
+      _rawLogo = null;
+      _rawCover = null;
+      update();
+      return;
+    }
+    await showImageSourceBottomSheet(isThumbnail: true);  // Bottom sheet call
   }
 
   void setSelectedAddonIndex(int index, bool notify) {
@@ -858,12 +930,19 @@ class StoreController extends GetxController implements GetxService {
     update();
   }
 
-  void pickImages() async {
-    XFile? xFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if(xFile != null) {
-      _rawImages.add(xFile);
+  // void pickImages() async {
+  //   XFile? xFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if(xFile != null) {
+  //     _rawImages.add(xFile);
+  //   }
+  //   update();
+  // }
+  Future<void> pickImages() async {
+    if ((savedImages.length + rawImages.length) >= 6) {
+      showCustomSnackBar('maximum_image_limit_is_6'.tr);
+      return;
     }
-    update();
+    await showImageSourceBottomSheet(isThumbnail: false);  // Bottom sheet call
   }
 
   void removeImage(int index) {

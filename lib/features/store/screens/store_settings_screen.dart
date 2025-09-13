@@ -140,7 +140,7 @@ class _StoreSettingsScreenState extends State<StoreSettingsScreen> {
                   const SizedBox(width: Dimensions.paddingSizeExtraSmall),
 
                   Text(
-                    '(${'max_size_2_mb'.tr})',
+                    '(${'max_size_10_mb'.tr})',
                     style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: Theme.of(context).colorScheme.error),
                   ),
 

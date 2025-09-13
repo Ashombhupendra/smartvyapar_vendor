@@ -360,6 +360,7 @@
   "thumbnail_image": "Imagen en miniatura",
   "maximum_image_limit_is_6": "El límite máximo de imágenes es 6.",
   "max_size_2_mb": "Tamaño máximo 2 MB",
+  "max_size_10_mb": "Tamaño máximo 10 MB",
   "approximate_delivery_time": "Tiempo de entrega aproximado",
   "minimum": "Mínimo",
   "maximum": "Máximo",

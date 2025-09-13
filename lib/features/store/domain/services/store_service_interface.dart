@@ -31,6 +31,7 @@ abstract class StoreServiceInterface {
   Future<bool> updateOrganicProductStatus(int? productID, int status);
   Future<bool> updateAnnouncement(int status, String announcement);
   Future<XFile?> pickImageFromGallery();
+  Future<XFile?> pickImage(ImageSource source);
   bool hasAttributeData(List<AttributeModel>? attributeList);
   int setUnitIndex (List<UnitModel>? unitList, Item? item, int unitIndex);
   List<VariantTypeModel>? variationTypeList(List<AttributeModel>? attributeList, Item? item);

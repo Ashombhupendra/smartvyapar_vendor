@@ -473,27 +473,29 @@ class _StoreRegistrationScreenState extends State<StoreRegistrationScreen>
                                                                             option);
                                                             },
                                                             child: DottedBorder(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor,
-                                                              strokeWidth: 1,
-                                                              strokeCap:
-                                                                  StrokeCap
-                                                                      .butt,
-                                                              dashPattern: const [
-                                                                5,
-                                                                5
-                                                              ],
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(0),
-                                                              borderType:
-                                                                  BorderType
-                                                                      .RRect,
-                                                              radius: const Radius
-                                                                  .circular(
-                                                                  Dimensions
-                                                                      .radiusDefault),
+                                                              options: RectDottedBorderOptions(
+                                                                color: Theme.of(
+                                                                    context)
+                                                                    .primaryColor,
+                                                                strokeWidth: 1,
+                                                                strokeCap:
+                                                                StrokeCap
+                                                                    .butt,
+                                                                dashPattern: const [
+                                                                  5,
+                                                                  5
+                                                                ],
+                                                                padding:
+                                                                const EdgeInsets
+                                                                    .all(0),
+                                                                /*borderType:
+                                                                BorderType
+                                                                    .RRect,
+                                                                radius: const Radius
+                                                                    .circular(
+                                                                    Dimensions
+                                                                        .radiusDefault),*/
+                                                              ),
                                                               child: Center(
                                                                 child:
                                                                     Visibility(
@@ -662,25 +664,26 @@ class _StoreRegistrationScreenState extends State<StoreRegistrationScreen>
                                                                       option);
                                                         },
                                                         child: DottedBorder(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                          strokeWidth: 1,
-                                                          strokeCap:
-                                                              StrokeCap.butt,
-                                                          dashPattern: const [
-                                                            5,
-                                                            5
-                                                          ],
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(0),
-                                                          borderType:
-                                                              BorderType.RRect,
-                                                          radius: const Radius
-                                                              .circular(
-                                                              Dimensions
-                                                                  .radiusDefault),
+                                                          options: RectDottedBorderOptions(
+                                                            color:
+                                                            Theme.of(context)
+                                                                .primaryColor,
+                                                            strokeWidth: 1,
+                                                            strokeCap:
+                                                            StrokeCap.butt,
+                                                            dashPattern: const [
+                                                              5,
+                                                              5
+                                                            ],
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .all(0),
+                                                            /*borderType: BorderType.RRect,
+                                                            radius: const Radius
+                                                                .circular(
+                                                                Dimensions
+                                                                    .radiusDefault),*/
+                                                          ),
                                                           child: Center(
                                                             child: Visibility(
                                                               visible:
@@ -848,25 +851,27 @@ class _StoreRegistrationScreenState extends State<StoreRegistrationScreen>
                                                                       option);
                                                         },
                                                         child: DottedBorder(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                          strokeWidth: 1,
-                                                          strokeCap:
-                                                              StrokeCap.butt,
-                                                          dashPattern: const [
-                                                            5,
-                                                            5
-                                                          ],
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(0),
-                                                          borderType:
-                                                              BorderType.RRect,
-                                                          radius: const Radius
-                                                              .circular(
-                                                              Dimensions
-                                                                  .radiusDefault),
+                                                          options: RectDottedBorderOptions(
+                                                            color:
+                                                            Theme.of(context)
+                                                                .primaryColor,
+                                                            strokeWidth: 1,
+                                                            strokeCap:
+                                                            StrokeCap.butt,
+                                                            dashPattern: const [
+                                                              5,
+                                                              5
+                                                            ],
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .all(0),
+                                                            /*borderType:
+                                                            BorderType.RRect,
+                                                            radius: const Radius
+                                                                .circular(
+                                                                Dimensions
+                                                                    .radiusDefault),*/
+                                                          ),
                                                           child: Center(
                                                             child: Visibility(
                                                               visible:
@@ -1032,25 +1037,27 @@ class _StoreRegistrationScreenState extends State<StoreRegistrationScreen>
                                                                       option);
                                                         },
                                                         child: DottedBorder(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                          strokeWidth: 1,
-                                                          strokeCap:
-                                                              StrokeCap.butt,
-                                                          dashPattern: const [
-                                                            5,
-                                                            5
-                                                          ],
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(0),
-                                                          borderType:
-                                                              BorderType.RRect,
-                                                          radius: const Radius
-                                                              .circular(
-                                                              Dimensions
-                                                                  .radiusDefault),
+                                                          options: RectDottedBorderOptions(
+                                                            color:
+                                                            Theme.of(context)
+                                                                .primaryColor,
+                                                            strokeWidth: 1,
+                                                            strokeCap:
+                                                            StrokeCap.butt,
+                                                            dashPattern: const [
+                                                              5,
+                                                              5
+                                                            ],
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .all(0),
+                                                            /*borderType:
+                                                            BorderType.RRect,
+                                                            radius: const Radius
+                                                                .circular(
+                                                                Dimensions
+                                                                    .radiusDefault),*/
+                                                          ),
                                                           child: Center(
                                                             child: Visibility(
                                                               visible:
@@ -1218,25 +1225,27 @@ class _StoreRegistrationScreenState extends State<StoreRegistrationScreen>
                                                                       option);
                                                         },
                                                         child: DottedBorder(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                          strokeWidth: 1,
-                                                          strokeCap:
-                                                              StrokeCap.butt,
-                                                          dashPattern: const [
-                                                            5,
-                                                            5
-                                                          ],
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(0),
-                                                          borderType:
-                                                              BorderType.RRect,
-                                                          radius: const Radius
-                                                              .circular(
-                                                              Dimensions
-                                                                  .radiusDefault),
+                                                          options: RectDottedBorderOptions(
+                                                            color:
+                                                            Theme.of(context)
+                                                                .primaryColor,
+                                                            strokeWidth: 1,
+                                                            strokeCap:
+                                                            StrokeCap.butt,
+                                                            dashPattern: const [
+                                                              5,
+                                                              5
+                                                            ],
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .all(0),
+                                                            /*borderType:
+                                                            BorderType.RRect,
+                                                            radius: const Radius
+                                                                .circular(
+                                                                Dimensions
+                                                                    .radiusDefault),*/
+                                                          ),
                                                           child: Center(
                                                             child: Visibility(
                                                               visible:
@@ -1402,25 +1411,27 @@ class _StoreRegistrationScreenState extends State<StoreRegistrationScreen>
                                                                       option);
                                                         },
                                                         child: DottedBorder(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                          strokeWidth: 1,
-                                                          strokeCap:
-                                                              StrokeCap.butt,
-                                                          dashPattern: const [
-                                                            5,
-                                                            5
-                                                          ],
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(0),
-                                                          borderType:
-                                                              BorderType.RRect,
-                                                          radius: const Radius
-                                                              .circular(
-                                                              Dimensions
-                                                                  .radiusDefault),
+                                                         options: RectDottedBorderOptions(
+                                                           color:
+                                                           Theme.of(context)
+                                                               .primaryColor,
+                                                           strokeWidth: 1,
+                                                           strokeCap:
+                                                           StrokeCap.butt,
+                                                           dashPattern: const [
+                                                             5,
+                                                             5
+                                                           ],
+                                                           padding:
+                                                           const EdgeInsets
+                                                               .all(0),
+                                                           /*borderType:
+                                                           BorderType.RRect,
+                                                           radius: const Radius
+                                                               .circular(
+                                                               Dimensions
+                                                                   .radiusDefault),*/
+                                                         ),
                                                           child: Center(
                                                             child: Visibility(
                                                               visible:
@@ -1588,25 +1599,27 @@ class _StoreRegistrationScreenState extends State<StoreRegistrationScreen>
                                                                       option);
                                                         },
                                                         child: DottedBorder(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                          strokeWidth: 1,
-                                                          strokeCap:
-                                                              StrokeCap.butt,
-                                                          dashPattern: const [
-                                                            5,
-                                                            5
-                                                          ],
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(0),
-                                                          borderType:
-                                                              BorderType.RRect,
-                                                          radius: const Radius
-                                                              .circular(
-                                                              Dimensions
-                                                                  .radiusDefault),
+                                                          options: RectDottedBorderOptions(
+                                                            color:
+                                                            Theme.of(context)
+                                                                .primaryColor,
+                                                            strokeWidth: 1,
+                                                            strokeCap:
+                                                            StrokeCap.butt,
+                                                            dashPattern: const [
+                                                              5,
+                                                              5
+                                                            ],
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .all(0),
+                                                            /*borderType:
+                                                            BorderType.RRect,
+                                                            radius: const Radius
+                                                                .circular(
+                                                                Dimensions
+                                                                    .radiusDefault),*/
+                                                          ),
                                                           child: Center(
                                                             child: Visibility(
                                                               visible:

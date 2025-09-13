@@ -228,11 +228,13 @@ class _ProviderSettingScreenState extends State<ProviderSettingScreen> with Tick
                         child: InkWell(
                           onTap: () => providerController.pickImage(isLogo: true),
                           child: DottedBorder(
-                            borderType: BorderType.RRect,
-                            radius: const Radius.circular(Dimensions.radiusDefault),
-                            dashPattern: const [8, 4],
-                            strokeWidth: 1,
-                            color: Theme.of(context).disabledColor.withValues(alpha: 0.5),
+                            options: RectDottedBorderOptions(
+                              //borderType: BorderType.RRect,
+                              //radius: const Radius.circular(Dimensions.radiusDefault),
+                              dashPattern: const [8, 4],
+                              strokeWidth: 1,
+                              color: Theme.of(context).disabledColor.withValues(alpha: 0.5),
+                            ),
                             child: (providerController.logo != null) || (widget.provider.logoFullUrl != null) ? const SizedBox() : Container(
                               height: 130, width: 120,
                               decoration: BoxDecoration(
@@ -284,11 +286,13 @@ class _ProviderSettingScreenState extends State<ProviderSettingScreen> with Tick
                         child: InkWell(
                           onTap: () => providerController.pickImage(),
                           child: DottedBorder(
-                            borderType: BorderType.RRect,
-                            radius: const Radius.circular(Dimensions.radiusDefault),
-                            dashPattern: const [8, 4],
-                            strokeWidth: 1,
-                            color: Theme.of(context).disabledColor.withValues(alpha: 0.5),
+                            options: RectDottedBorderOptions(
+                              //borderType: BorderType.RRect,
+                              //radius: const Radius.circular(Dimensions.radiusDefault),
+                              dashPattern: const [8, 4],
+                              strokeWidth: 1,
+                              color: Theme.of(context).disabledColor.withValues(alpha: 0.5),
+                            ),
                             child: (providerController.cover != null) || (widget.provider.coverPhotoFullUrl != null) ? const SizedBox() : Container(
                               height: 130, width: 220,
                               decoration: BoxDecoration(

@@ -312,11 +312,13 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> with TickerProvider
                         child: InkWell(
                           onTap: () => providerController.pickImage(isVehicleThumbnail: true),
                           child: DottedBorder(
-                            borderType: BorderType.RRect,
-                            radius: const Radius.circular(Dimensions.radiusDefault),
-                            dashPattern: const [8, 4],
-                            strokeWidth: 1,
-                            color: Get.isDarkMode ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFE5E5E5),
+                            options: RectDottedBorderOptions(
+                              //borderType: BorderType.RRect,
+                              //radius: const Radius.circular(Dimensions.radiusDefault),
+                              dashPattern: const [8, 4],
+                              strokeWidth: 1,
+                              color: Get.isDarkMode ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFE5E5E5),
+                            ),
                             child: _vehicle!.thumbnailFullUrl != null || providerController.vehicleThumbnail != null ? const SizedBox() : Container(
                               height: 130, width: 220,
                               decoration: BoxDecoration(
@@ -374,11 +376,13 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> with TickerProvider
                                   }
                                 },
                                 child: DottedBorder(
-                                  borderType: BorderType.RRect,
-                                  radius: const Radius.circular(Dimensions.radiusDefault),
-                                  dashPattern: const [8, 4],
-                                  strokeWidth: 1,
-                                  color: Get.isDarkMode ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFE5E5E5),
+                                  options: RectDottedBorderOptions(
+                                    //borderType: BorderType.RRect,
+                                    //radius: const Radius.circular(Dimensions.radiusDefault),
+                                    dashPattern: const [8, 4],
+                                    strokeWidth: 1,
+                                    color: Get.isDarkMode ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFE5E5E5),
+                                  ),
                                   child: Container(
                                     height: 130, width: 220,
                                     decoration: BoxDecoration(
@@ -405,11 +409,13 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> with TickerProvider
                               );
                             }
                             return DottedBorder(
-                              borderType: BorderType.RRect,
-                              radius: const Radius.circular(Dimensions.radiusDefault),
-                              dashPattern: const [8, 5],
-                              strokeWidth: 1,
-                              color: const Color(0xFFE5E5E5),
+                              options: RectDottedBorderOptions(
+                                //borderType: BorderType.RRect,
+                                //radius: const Radius.circular(Dimensions.radiusDefault),
+                                dashPattern: const [8, 5],
+                                strokeWidth: 1,
+                                color: const Color(0xFFE5E5E5),
+                              ),
                               child: SizedBox(
                                 width: 220,
                                 child: Stack(children: [
@@ -963,11 +969,13 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> with TickerProvider
                                 }
                               },
                               child: DottedBorder(
-                                borderType: BorderType.RRect,
-                                radius: const Radius.circular(Dimensions.radiusDefault),
-                                dashPattern: const [8, 4],
-                                strokeWidth: 1,
-                                color: Get.isDarkMode ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFE5E5E5),
+                                options: RectDottedBorderOptions(
+                                  //borderType: BorderType.RRect,
+                                  //radius: const Radius.circular(Dimensions.radiusDefault),
+                                  dashPattern: const [8, 4],
+                                  strokeWidth: 1,
+                                  color: Get.isDarkMode ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFE5E5E5),
+                                ),
                                 child: Container(
                                   height: 70,
                                   width: 220,
@@ -1004,11 +1012,13 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> with TickerProvider
                             );
                           }
                           return DottedBorder(
-                            borderType: BorderType.RRect,
-                            radius: const Radius.circular(Dimensions.radiusDefault),
-                            dashPattern: const [8, 4],
-                            strokeWidth: 1,
-                            color: const Color(0xFFE5E5E5),
+                            options: RectDottedBorderOptions(
+                              //borderType: BorderType.RRect,
+                              //radius: const Radius.circular(Dimensions.radiusDefault),
+                              dashPattern: const [8, 4],
+                              strokeWidth: 1,
+                              color: const Color(0xFFE5E5E5),
+                            ),
                             child: SizedBox(
                               width: 220,
                               child: Stack(

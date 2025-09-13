@@ -195,7 +195,7 @@ class _AddItemScreenState extends State<AddItemScreen> with TickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      resizeToAvoidBottomInset: false,
       appBar: CustomAppBarWidget(title: widget.item != null ? 'update_item'.tr : 'add_item'.tr),
 
       body: SafeArea(
@@ -301,1199 +301,1204 @@ class _AddItemScreenState extends State<AddItemScreen> with TickerProviderStateM
 
               Expanded(child: SingleChildScrollView(
                 padding: const EdgeInsets.all(Dimensions.paddingSizeSmall),
-                physics: const BouncingScrollPhysics(),
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-
-                  Text('item_info'.tr, style: robotoMedium),
-                  const SizedBox(height: Dimensions.paddingSizeSmall),
-
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                      boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
-                    ),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-
-                      SizedBox(
-                        height: 40,
-                        child: TabBar(
-                          tabAlignment: TabAlignment.start,
-                          controller: _tabController,
-                          indicatorColor: Theme.of(context).primaryColor,
-                          indicatorWeight: 3,
-                          labelColor: Theme.of(context).primaryColor,
-                          unselectedLabelColor: Theme.of(context).disabledColor,
-                          unselectedLabelStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor, fontSize: Dimensions.fontSizeSmall),
-                          labelStyle: robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault, color: Theme.of(context).primaryColor),
-                          labelPadding: const EdgeInsets.only(right: Dimensions.radiusDefault),
-                          isScrollable: true,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          dividerColor: Colors.transparent,
-                          tabs: _tabs,
-                          onTap: (int ? value) {
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: Dimensions.paddingSizeLarge),
-                        child: Divider(height: 0),
-                      ),
-
-                      Text('insert_language_wise_item_name_and_description'.tr, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor)),
-                      const SizedBox(height: Dimensions.paddingSizeDefault),
-
-                      CustomTextFieldWidget(
-                        hintText: 'name'.tr,
-                        labelText: 'name'.tr,
-                        controller: _nameControllerList[_tabController!.index],
-                        capitalization: TextCapitalization.words,
-                        focusNode: _nameFocusList[_tabController!.index],
-                        nextFocus: _tabController!.index != _languageList!.length-1 ? _descriptionFocusList[_tabController!.index] : _descriptionFocusList[0],
-                        showTitle: false,
-                      ),
-                      const SizedBox(height: Dimensions.paddingSizeExtraOverLarge),
-
-                      CustomTextFieldWidget(
-                        hintText: 'description'.tr,
-                        labelText: 'description'.tr,
-                        controller: _descriptionControllerList[_tabController!.index],
-                        focusNode: _descriptionFocusList[_tabController!.index],
-                        capitalization: TextCapitalization.sentences,
-                        maxLines: 3,
-                        inputAction: _tabController!.index != _languageList.length-1 ? TextInputAction.next : TextInputAction.done,
-                        nextFocus: _tabController!.index != _languageList.length-1 ? _nameFocusList[_tabController!.index + 1] : null,
-                        showTitle: false,
-                      ),
-
-                    ]),
-                  ),
-                  const SizedBox(height: Dimensions.paddingSizeDefault),
-
-                  Text('item_setup'.tr, style: robotoBold),
-                  const SizedBox(height: Dimensions.paddingSizeSmall),
-
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                      boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
-                    ),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                          color: Theme.of(context).cardColor,
-                          border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
-                        ),
-                        child: CustomDropdown(
-                          onChange: (int? value, int index) {
-                            categoryController.setCategoryIndex(value!, true);
-                            categoryController.getSubCategoryList(categoryController.categoryList![categoryController.categoryIndex!].id, null);
-                          },
-                          dropdownButtonStyle: DropdownButtonStyle(
-                            height: 45,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: Dimensions.paddingSizeExtraSmall,
-                              horizontal: Dimensions.paddingSizeExtraSmall,
-                            ),
-                            primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
-                          ),
-                          iconColor: Theme.of(context).disabledColor,
-                          dropdownStyle: DropdownStyle(
-                            elevation: 10,
-                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                            padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                          ),
-                          items: categoryList,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Text(
-                              widget.item != null && categoryController.categoryIndex != null ? categoryController.categoryList![categoryController.categoryIndex!].name! : 'category'.tr,
-                              style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: Dimensions.paddingSizeExtraOverLarge),
-
-                      categoryController.subCategoryList != null && categoryController.subCategoryList!.isNotEmpty ? Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                          color: Theme.of(context).cardColor,
-                          border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
-                        ),
-                        child: CustomDropdown(
-                          onChange: (int? value, int index) {
-                            categoryController.setSubCategoryIndex(value!, true);
-                          },
-                          dropdownButtonStyle: DropdownButtonStyle(
-                            height: 45,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: Dimensions.paddingSizeExtraSmall,
-                              horizontal: Dimensions.paddingSizeExtraSmall,
-                            ),
-                            primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
-                          ),
-                          iconColor: Theme.of(context).disabledColor,
-                          dropdownStyle: DropdownStyle(
-                            elevation: 10,
-                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                            padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                          ),
-                          items: subCategoryList,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Text(
-                              widget.item != null && categoryController.subCategoryIndex != null ? categoryController.subCategoryList![categoryController.subCategoryIndex!].name! : 'sub_category'.tr,
-                              style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
-                            ),
-                          ),
-                        ),
-                      ) : const SizedBox(),
-                      SizedBox(height: categoryController.subCategoryList != null && categoryController.subCategoryList!.isNotEmpty ? Dimensions.paddingSizeExtraOverLarge : 0),
-
-                      isPharmacy ? Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                          color: Theme.of(context).cardColor,
-                          border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
-                        ),
-                        child: CustomDropdown(
-                          onChange: (int? value, int index) {
-                            storeController.setSuitableTagIndex(value!, true);
-                          },
-                          dropdownButtonStyle: DropdownButtonStyle(
-                            height: 45,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: Dimensions.paddingSizeExtraSmall,
-                              horizontal: Dimensions.paddingSizeExtraSmall,
-                            ),
-                            primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
-                          ),
-                          iconColor: Theme.of(context).disabledColor,
-                          dropdownStyle: DropdownStyle(
-                            elevation: 10,
-                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                            padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                          ),
-                          items: suitableTagList,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Text(
-                              widget.item != null && storeController.suitableTagIndex != null ? storeController.suitableTagList![storeController.suitableTagIndex!].name! : 'suitable_for'.tr,
-                              style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
-                            ),
-                          ),
-                        ),
-                      ) : const SizedBox(),
-                      SizedBox(height: isPharmacy ? Dimensions.paddingSizeExtraOverLarge : 0),
-
-                      isEcommerce ? Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                          color: Theme.of(context).cardColor,
-                          border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
-                        ),
-                        child: CustomDropdown(
-                          onChange: (int? value, int index) {
-                            storeController.setBrandIndex(value!, true);
-                          },
-                          dropdownButtonStyle: DropdownButtonStyle(
-                            height: 45,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: Dimensions.paddingSizeExtraSmall,
-                              horizontal: Dimensions.paddingSizeExtraSmall,
-                            ),
-                            primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
-                          ),
-                          iconColor: Theme.of(context).disabledColor,
-                          dropdownStyle: DropdownStyle(
-                            elevation: 10,
-                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                            padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                          ),
-                          items: brandList,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: Text(
-                              widget.item != null && storeController.brandIndex != null ? storeController.brandList![storeController.brandIndex!].name! : 'brand'.tr,
-                              style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
-                            ),
-                          ),
-                        ),
-                      ) : const SizedBox(),
-                      SizedBox(height: isEcommerce ? Dimensions.paddingSizeExtraOverLarge : 0),
-
-                      isPharmacy ? Column(children: [
-                        Row(children: [
-                          Expanded(
-                            child: Autocomplete<int>(
-                              optionsBuilder: (TextEditingValue value) {
-                                if(value.text.isEmpty) {
-                                  return const Iterable<int>.empty();
-                                }else {
-                                  return genericNameSuggestion.where((genericName) => storeController.genericNameSuggestionList![genericName]!.toLowerCase().contains(value.text.toLowerCase()));
-                                }
-                              },
-                              optionsViewBuilder: (context, onAutoCompleteSelect, options) {
-                                List<int> result = TypeConverter.convertIntoListOfInteger(options.toString());
-
-                                return Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Material(
-                                    color: Theme.of(context).primaryColorLight,
-                                    elevation: 4.0,
-                                    child: Container(
-                                      color: Theme.of(context).cardColor,
-                                      width: MediaQuery.of(context).size.width - 110,
-                                      child: ListView.separated(
-                                        shrinkWrap: true,
-                                        padding: const EdgeInsets.all(8.0),
-                                        itemCount: result.length,
-                                        separatorBuilder: (context, i) {
-                                          return const Divider(height: 0,);
-                                        },
-                                        itemBuilder: (BuildContext context, int index) {
-                                          return CustomInkWellWidget(
-                                            onTap: () {
-                                              if(storeController.selectedGenericNameList!.length > 1) {
-                                              }else {
-                                                _genericNameSuggestionController.text = storeController.genericNameSuggestionList![result[index]]!;
-                                                storeController.setSelectedGenericNameIndex(result[index], true);
-                                              }
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
-                                              child: Text(storeController.genericNameSuggestionList![result[index]]!),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              fieldViewBuilder: (context, genericNameController, node, onComplete) {
-                                genericNameController.text = _genericNameSuggestionController.text;
-                                return Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
-                                  child: TextField(
-                                    controller: genericNameController,
-                                    focusNode: node,
-                                    onEditingComplete: () {
-                                      node.unfocus();
-                                      _genericNameSuggestionController.text = genericNameController.text;
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: 'generic_name'.tr,
-                                      labelText: 'generic_name'.tr,
-                                      hintStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
-                                      labelStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                        borderSide: BorderSide(color: Theme.of(context).disabledColor, width: 0.3),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                        borderSide: BorderSide(color: Theme.of(context).primaryColor),
-                                      ),
-                                      suffixIcon: CustomToolTip(
-                                        message: 'specify_the_medicine_active_ingredient_that_makes_it_work'.tr,
-                                        preferredDirection: AxisDirection.up,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              displayStringForOption: (value) => storeController.genericNameSuggestionList![value]!,
-                              onSelected: (int value) {
-                                if(storeController.selectedGenericNameList!.length > 1) {
-                                }else {
-                                  _genericNameSuggestionController.text = storeController.genericNameSuggestionList![value]!;
-                                  storeController.setSelectedGenericNameIndex(value, true);
-                                }
-                              },
-                            ),
-                          ),
-                        ]),
-                      ]) : const SizedBox(),
-                      SizedBox(height: isPharmacy ? Dimensions.paddingSizeExtraOverLarge : 0),
-
-                      isFood || isGrocery ? Column(children: [
-                        Row(children: [
-                          Expanded(
-                            flex: 8,
-                            child: Autocomplete<int>(
-                              optionsBuilder: (TextEditingValue value) {
-                                if(value.text.isEmpty) {
-                                  return const Iterable<int>.empty();
-                                }else {
-                                  return nutritionSuggestion.where((nutrition) => storeController.nutritionSuggestionList![nutrition]!.toLowerCase().contains(value.text.toLowerCase()));
-                                }
-                              },
-                              optionsViewBuilder: (context, onAutoCompleteSelect, options) {
-                                List<int> result = TypeConverter.convertIntoListOfInteger(options.toString());
-
-                                return Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Material(
-                                    color: Theme.of(context).primaryColorLight,
-                                    elevation: 4.0,
-                                    child: Container(
-                                        color: Theme.of(context).cardColor,
-                                        width: MediaQuery.of(context).size.width - 110,
-                                        child: ListView.separated(
-                                          shrinkWrap: true,
-                                          padding: const EdgeInsets.all(8.0),
-                                          itemCount: result.length,
-                                          separatorBuilder: (context, i) {
-                                            return const Divider(height: 0,);
-                                          },
-                                          itemBuilder: (BuildContext context, int index) {
-                                            return CustomInkWellWidget(
-                                              onTap: () {
-                                                if(storeController.selectedNutritionList!.length >= 5) {
-                                                  showCustomSnackBar('you_can_select_or_add_maximum_5_nutrition'.tr, isError: true);
-                                                }else {
-                                                  _nutritionSuggestionController.text = '';
-                                                  storeController.setSelectedNutritionIndex(result[index], true);
-                                                }
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
-                                                child: Text(storeController.nutritionSuggestionList![result[index]]!),
-                                              ),
-                                            );
-                                          },
-                                        )
-                                    ),
-                                  ),
-                                );
-                              },
-                              fieldViewBuilder: (context, controller, node, onComplete) {
-                                _nutritionSuggestionController = controller;
-                                return Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
-                                  child: TextField(
-                                    controller: controller,
-                                    focusNode: node,
-                                    onEditingComplete: () {
-                                      onComplete();
-                                      controller.text = '';
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: 'type_and_click_add_button'.tr,
-                                      labelText: 'nutrition'.tr,
-                                      labelStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
-                                      hintStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                        borderSide: BorderSide(color: Theme.of(context).disabledColor, width: 0.3),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                        borderSide: BorderSide(color: Theme.of(context).primaryColor),
-                                      ),
-                                      suffixIcon: CustomToolTip(
-                                        message: 'specify_the_necessary_keywords_relating_to_energy_values_for_the_item'.tr,
-                                        preferredDirection: AxisDirection.up,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              displayStringForOption: (value) => storeController.nutritionSuggestionList![value]!,
-                              onSelected: (int value) {
-                                if(storeController.selectedNutritionList!.length >= 5) {
-                                  showCustomSnackBar('you_can_select_or_add_maximum_5_nutrition'.tr, isError: true);
-                                }else {
-                                  _nutritionSuggestionController.text = '';
-                                  storeController.setSelectedNutritionIndex(value, true);
-                                }
-                              },
-                            ),
-                          ),
-                          const SizedBox(width: Dimensions.paddingSizeDefault),
-
-                          Expanded(
-                            flex: 2,
-                            child: CustomButtonWidget(buttonText: 'add'.tr, onPressed: (){
-                              if(storeController.selectedNutritionList!.length >= 5) {
-                                showCustomSnackBar('you_can_select_or_add_maximum_5_nutrition'.tr, isError: true);
-                              }else{
-                                if(_nutritionSuggestionController.text.isNotEmpty) {
-                                  storeController.setNutrition(_nutritionSuggestionController.text.trim());
-                                  _nutritionSuggestionController.text = '';
-                                }
-                              }
-                            }),
-                          ),
-                        ]),
-                        SizedBox(height: storeController.selectedNutritionList != null ? Dimensions.paddingSizeSmall : 0),
-
-                        storeController.selectedNutritionList != null ? SizedBox(
-                          height: storeController.selectedNutritionList!.isNotEmpty ? 40 : 0,
-                          child: ListView.builder(
-                            itemCount: storeController.selectedNutritionList!.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                padding: const EdgeInsets.only(left: Dimensions.paddingSizeExtraSmall),
-                                margin: const EdgeInsets.only(right: Dimensions.paddingSizeSmall),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).disabledColor.withValues(alpha: 0.2),
-                                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                                ),
-                                child: Row(children: [
-
-                                  Text(
-                                    storeController.selectedNutritionList![index]!,
-                                    style: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.7)),
-                                  ),
-
-                                  InkWell(
-                                    onTap: () => storeController.removeNutrition(index),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                                      child: Icon(Icons.close, size: 15, color: Theme.of(context).disabledColor.withValues(alpha: 0.7)),
-                                    ),
-                                  ),
-
-                                ]),
-                              );
-                            },
-                          ),
-                        ) : const SizedBox(),
-                      ]) : const SizedBox(),
-                      SizedBox(height: isFood || isGrocery ? Dimensions.paddingSizeExtraOverLarge : 0),
-
-                      isFood || isGrocery ? Column(children: [
-                        Row(children: [
-                          Expanded(
-                            flex: 8,
-                            child: Autocomplete<int>(
-                              optionsBuilder: (TextEditingValue value) {
-                                if(value.text.isEmpty) {
-                                  return const Iterable<int>.empty();
-                                }else {
-                                  return allergicIngredientsSuggestion.where((allergicIngredients) => storeController.allergicIngredientsSuggestionList![allergicIngredients]!.toLowerCase().contains(value.text.toLowerCase()));
-                                }
-                              },
-                              optionsViewBuilder: (context, onAutoCompleteSelect, options) {
-                                List<int> result = TypeConverter.convertIntoListOfInteger(options.toString());
-
-                                return Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Material(
-                                    color: Theme.of(context).primaryColorLight,
-                                    elevation: 4.0,
-                                    child: Container(
-                                        color: Theme.of(context).cardColor,
-                                        width: MediaQuery.of(context).size.width - 110,
-                                        child: ListView.separated(
-                                          shrinkWrap: true,
-                                          padding: const EdgeInsets.all(8.0),
-                                          itemCount: result.length,
-                                          separatorBuilder: (context, i) {
-                                            return const Divider(height: 0,);
-                                          },
-                                          itemBuilder: (BuildContext context, int index) {
-                                            return CustomInkWellWidget(
-                                              onTap: () {
-                                                if(storeController.selectedAllergicIngredientsList!.length >= 5) {
-                                                  showCustomSnackBar('you_can_select_or_add_maximum_5_allergic_ingredients'.tr, isError: true);
-                                                }else {
-                                                  _allergicIngredientsSuggestionController.text = '';
-                                                  storeController.setSelectedAllergicIngredientsIndex(result[index], true);
-                                                }
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
-                                                child: Text(storeController.allergicIngredientsSuggestionList![result[index]]!),
-                                              ),
-                                            );
-                                          },
-                                        )
-                                    ),
-                                  ),
-                                );
-                              },
-                              fieldViewBuilder: (context, controller, node, onComplete) {
-                                _allergicIngredientsSuggestionController = controller;
-                                return Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
-                                  child: TextField(
-                                    controller: controller,
-                                    focusNode: node,
-                                    onEditingComplete: () {
-                                      onComplete();
-                                      controller.text = '';
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: 'type_and_click_add_button'.tr,
-                                      labelText: 'allergic_ingredients'.tr,
-                                      hintStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
-                                      labelStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                        borderSide: BorderSide(color: Theme.of(context).disabledColor, width: 0.3),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                        borderSide: BorderSide(color: Theme.of(context).primaryColor),
-                                      ),
-                                      suffixIcon: CustomToolTip(
-                                        message: 'specify_the_ingredients_of_the_item_which_can_make_a_reaction_as_an_allergen'.tr,
-                                        preferredDirection: AxisDirection.up,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              displayStringForOption: (value) => storeController.allergicIngredientsSuggestionList![value]!,
-                              onSelected: (int value) {
-                                if(storeController.selectedAllergicIngredientsList!.length >= 5) {
-                                  showCustomSnackBar('you_can_select_or_add_maximum_5_allergic_ingredients'.tr, isError: true);
-                                }else {
-                                  _allergicIngredientsSuggestionController.text = '';
-                                  storeController.setSelectedAllergicIngredientsIndex(value, true);
-                                }
-                              },
-                            ),
-                          ),
-                          const SizedBox(width: Dimensions.paddingSizeDefault),
-
-                          Expanded(
-                            flex: 2,
-                            child: CustomButtonWidget(buttonText: 'add'.tr, onPressed: (){
-                              if(storeController.selectedAllergicIngredientsList!.length >= 5) {
-                                showCustomSnackBar('you_can_select_or_add_maximum_5_allergic_ingredients'.tr, isError: true);
-                              }else{
-                                if(_allergicIngredientsSuggestionController.text.isNotEmpty) {
-                                  storeController.setAllergicIngredients(_allergicIngredientsSuggestionController.text.trim());
-                                  _allergicIngredientsSuggestionController.text = '';
-                                }
-                              }
-                            }),
-                          ),
-                        ]),
-                        SizedBox(height: storeController.selectedAllergicIngredientsList != null ? Dimensions.paddingSizeSmall : 0),
-
-                        storeController.selectedAllergicIngredientsList != null ? SizedBox(
-                          height: storeController.selectedAllergicIngredientsList!.isNotEmpty ? 40 : 0,
-                          child: ListView.builder(
-                            itemCount: storeController.selectedAllergicIngredientsList!.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                padding: const EdgeInsets.only(left: Dimensions.paddingSizeExtraSmall),
-                                margin: const EdgeInsets.only(right: Dimensions.paddingSizeSmall),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).disabledColor.withValues(alpha: 0.2),
-                                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                                ),
-                                child: Row(children: [
-
-                                  Text(
-                                    storeController.selectedAllergicIngredientsList![index]!,
-                                    style: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.7)),
-                                  ),
-
-                                  InkWell(
-                                    onTap: () => storeController.removeAllergicIngredients(index),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                                      child: Icon(Icons.close, size: 15, color: Theme.of(context).disabledColor.withValues(alpha: 0.7)),
-                                    ),
-                                  ),
-
-                                ]),
-                              );
-                            },
-                          ),
-                        ) : const SizedBox(),
-                      ]) : const SizedBox(),
-                      SizedBox(height: isFood || isGrocery ? Dimensions.paddingSizeExtraOverLarge : 0),
-
-                      (_module.vegNonVeg! && Get.find<SplashController>().configModel!.toggleVegNonVeg!) ? Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('item_type'.tr, style: robotoMedium),
-                      ) : const SizedBox(),
-
-                      (_module.vegNonVeg! && Get.find<SplashController>().configModel!.toggleVegNonVeg!) ? Row(children: [
-                        Expanded(child: RadioListTile<String>(
-                          title: Text('non_veg'.tr, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
-                          groupValue: storeController.isVeg ? 'veg' : 'non_veg',
-                          value: 'non_veg',
-                          contentPadding: EdgeInsets.zero,
-                          onChanged: (String? value) => storeController.setVeg(value == 'veg', true),
-                          activeColor: Theme.of(context).primaryColor,
-                        )),
-                        const SizedBox(width: Dimensions.paddingSizeSmall),
-
-                        Expanded(child: RadioListTile<String>(
-                          title: Text('veg'.tr, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
-                          groupValue: storeController.isVeg ? 'veg' : 'non_veg',
-                          value: 'veg',
-                          contentPadding: EdgeInsets.zero,
-                          onChanged: (String? value) => storeController.setVeg(value == 'veg', true),
-                          activeColor: Theme.of(context).primaryColor,
-                          dense: false,
-                        )),
-                      ]) : const SizedBox(),
-                      SizedBox(height: (_module.vegNonVeg! && Get.find<SplashController>().configModel!.toggleVegNonVeg!) ? Dimensions.paddingSizeSmall : 0),
-
-                      (isFood || isGrocery) && storeHalalActive ? ListTile(
-                        onTap: () => storeController.toggleHalal(),
-                        leading: Checkbox(
-                          activeColor: Theme.of(context).primaryColor,
-                          value: storeController.isHalal,
-                          onChanged: (bool? isChecked) => storeController.toggleHalal(),
-                        ),
-                        title: Text('is_it_halal'.tr, style: robotoMedium),
-                        contentPadding: EdgeInsets.zero,
-                        dense: true,
-                        horizontalTitleGap: 0,
-                      ) : const SizedBox(),
-
-                      isPharmacy ? ListTile(
-                        onTap: () => storeController.toggleBasicMedicine(),
-                        leading: Checkbox(
-                          activeColor: Theme.of(context).primaryColor,
-                          value: storeController.isBasicMedicine,
-                          onChanged: (bool? isChecked) => storeController.toggleBasicMedicine(),
-                        ),
-                        title: Text('is_basic_medicine'.tr, style: robotoMedium),
-                        contentPadding: EdgeInsets.zero,
-                        dense: true,
-                        horizontalTitleGap: 0,
-                      ) : const SizedBox(),
-
-                    ]),
-                  ),
-                  const SizedBox(height: Dimensions.paddingSizeDefault),
-
-                  isPharmacy ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Text('prescription_required'.tr, style: robotoBold),
+                physics: const ClampingScrollPhysics(),
+                child: ClipRect(
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  
+                    Text('item_info'.tr, style: robotoMedium),
                     const SizedBox(height: Dimensions.paddingSizeSmall),
-
+                  
                     Container(
+                      padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
-                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault - 2),
-                        boxShadow:const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
+                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                        boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
                       ),
-                      child: ListTile(
-                        onTap: () => storeController.togglePrescriptionRequired(),
-                        leading: Checkbox(
-                          activeColor: Theme.of(context).primaryColor,
-                          value: storeController.isPrescriptionRequired,
-                          onChanged: (bool? isChecked) => storeController.togglePrescriptionRequired(),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  
+                        SizedBox(
+                          height: 40,
+                          child: TabBar(
+                            tabAlignment: TabAlignment.start,
+                            controller: _tabController,
+                            indicatorColor: Theme.of(context).primaryColor,
+                            indicatorWeight: 3,
+                            labelColor: Theme.of(context).primaryColor,
+                            unselectedLabelColor: Theme.of(context).disabledColor,
+                            unselectedLabelStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor, fontSize: Dimensions.fontSizeSmall),
+                            labelStyle: robotoBold.copyWith(fontSize: Dimensions.fontSizeDefault, color: Theme.of(context).primaryColor),
+                            labelPadding: const EdgeInsets.only(right: Dimensions.radiusDefault),
+                            isScrollable: true,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            dividerColor: Colors.transparent,
+                            tabs: _tabs,
+                            onTap: (int ? value) {
+                              setState(() {});
+                            },
+                          ),
                         ),
-                        title: Text('this_item_need_prescription_to_place_order'.tr, style: robotoMedium),
-                        contentPadding: EdgeInsets.zero,
-                        dense: true,
-                        horizontalTitleGap: 0,
-                      ),
-                    ),
-                  ]) : const SizedBox(),
-                  SizedBox(height: isPharmacy ? Dimensions.paddingSizeDefault : 0),
-
-                  Text('MRP Info'.tr, style: robotoBold),
-                  const SizedBox(height: Dimensions.paddingSizeSmall),
-
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                      boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
-                    ),
-                    child: Column(
-                      children: [
-
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: Dimensions.paddingSizeLarge),
+                          child: Divider(height: 0),
+                        ),
+                  
+                        Text('insert_language_wise_item_name_and_description'.tr, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor)),
+                        const SizedBox(height: Dimensions.paddingSizeDefault),
+                  
                         CustomTextFieldWidget(
-                          hintText: 'MRP'.tr,
-                          labelText: 'MRP'.tr,
-                          controller: _priceController,
-                          focusNode: _priceNode,
-                          nextFocus: _discountNode,
-                          isAmount: true,
+                          hintText: 'name'.tr,
+                          labelText: 'name'.tr,
+                          controller: _nameControllerList[_tabController!.index],
+                          capitalization: TextCapitalization.words,
+                          focusNode: _nameFocusList[_tabController!.index],
+                          nextFocus: _tabController!.index != _languageList!.length-1 ? _descriptionFocusList[_tabController!.index] : _descriptionFocusList[0],
+                          showTitle: false,
                         ),
                         const SizedBox(height: Dimensions.paddingSizeExtraOverLarge),
-
-                        Row(children: [
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                color: Theme.of(context).cardColor,
-                                border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
+                  
+                        CustomTextFieldWidget(
+                          hintText: 'description'.tr,
+                          labelText: 'description'.tr,
+                          controller: _descriptionControllerList[_tabController!.index],
+                          focusNode: _descriptionFocusList[_tabController!.index],
+                          capitalization: TextCapitalization.sentences,
+                          maxLines: 3,
+                          inputAction: _tabController!.index != _languageList.length-1 ? TextInputAction.next : TextInputAction.done,
+                          nextFocus: _tabController!.index != _languageList.length-1 ? _nameFocusList[_tabController!.index + 1] : null,
+                          showTitle: false,
+                        ),
+                  
+                      ]),
+                    ),
+                    const SizedBox(height: Dimensions.paddingSizeDefault),
+                  
+                    Text('item_setup'.tr, style: robotoBold),
+                    const SizedBox(height: Dimensions.paddingSizeSmall),
+                  
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                        boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
+                      ),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                            color: Theme.of(context).cardColor,
+                            border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
+                          ),
+                          child: CustomDropdown(
+                            onChange: (int? value, int index) {
+                              categoryController.setCategoryIndex(value!, true);
+                              categoryController.getSubCategoryList(categoryController.categoryList![categoryController.categoryIndex!].id, null);
+                            },
+                            dropdownButtonStyle: DropdownButtonStyle(
+                              height: 45,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: Dimensions.paddingSizeExtraSmall,
+                                horizontal: Dimensions.paddingSizeExtraSmall,
                               ),
-                              child: CustomDropdown(
-                                onChange: (int? value, int index) {
-                                  storeController.setDiscountTypeIndex(value!, true);
-                                  _validateDiscount();
-                                },
-                                dropdownButtonStyle: DropdownButtonStyle(
-                                  height: 45,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: Dimensions.paddingSizeExtraSmall,
-                                    horizontal: Dimensions.paddingSizeExtraSmall,
-                                  ),
-                                  primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
-                                ),
-                                iconColor: Theme.of(context).disabledColor,
-                                dropdownStyle: DropdownStyle(
-                                  elevation: 10,
-                                  borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                  padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                                ),
-                                items: discountTypeList,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: Text(
-                                    widget.item != null ? storeController.discountTypeList[storeController.discountTypeIndex]!.tr : 'discount_type'.tr,
-                                    style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
-                                  ),
-                                ),
+                              primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
+                            ),
+                            iconColor: Theme.of(context).disabledColor,
+                            dropdownStyle: DropdownStyle(
+                              elevation: 10,
+                              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                              padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                            ),
+                            items: categoryList,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                widget.item != null && categoryController.categoryIndex != null ? categoryController.categoryList![categoryController.categoryIndex!].name! : 'category'.tr,
+                                style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
                               ),
                             ),
                           ),
-                          const SizedBox(width: Dimensions.paddingSizeDefault),
-
-                          Expanded(
-                            child: CustomTextFieldWidget(
-                              hintText: 'discount'.tr,
-                              labelText: 'discount'.tr,
-                              controller: _discountController,
-                              focusNode: _discountNode,
-                              isAmount: true,
-                              onChanged: (value) => _validateDiscount(),
-                            ),
-                          ),
-                        ]),
-                        const SizedBox(height: Dimensions.paddingSizeExtraOverLarge),
-
-                        CustomTextFieldWidget(
-                          hintText: 'maximum_order_quantity'.tr,
-                          labelText: 'maximum_order_quantity'.tr,
-                          controller: _maxOrderQuantityController,
-                          isNumber: true,
                         ),
-                        SizedBox(height: (_module.stock! || _module.unit!) ? Dimensions.paddingSizeExtraOverLarge : 0),
-
-                        (_module.stock! || _module.unit!) ? Row(children: [
-                          _module.stock! ? Expanded(child: CustomTextFieldWidget(
-                            hintText: 'total_stock'.tr,
-                            labelText: 'total_stock'.tr,
-                            controller: _stockController,
-                            isNumber: true,
-                            isEnabled: storeController.variantTypeList!.isEmpty,
-                          )) : const SizedBox(),
-                          SizedBox(width: _module.stock! ? Dimensions.paddingSizeSmall : 0),
-
-                          _module.unit! ? Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                color: Theme.of(context).cardColor,
-                                border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
+                        const SizedBox(height: Dimensions.paddingSizeExtraOverLarge),
+                  
+                        categoryController.subCategoryList != null && categoryController.subCategoryList!.isNotEmpty ? Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                            color: Theme.of(context).cardColor,
+                            border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
+                          ),
+                          child: CustomDropdown(
+                            onChange: (int? value, int index) {
+                              categoryController.setSubCategoryIndex(value!, true);
+                            },
+                            dropdownButtonStyle: DropdownButtonStyle(
+                              height: 45,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: Dimensions.paddingSizeExtraSmall,
+                                horizontal: Dimensions.paddingSizeExtraSmall,
                               ),
-                              child: CustomDropdown(
-                                onChange: (int? value, int index) {
-                                  storeController.setUnitIndex(value!, true);
-                                  print("valiue=>> $value");
-                                  print("valiue=>> $index");
-                                },
-                                dropdownButtonStyle: DropdownButtonStyle(
-                                  height: 45,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: Dimensions.paddingSizeExtraSmall,
-                                    horizontal: Dimensions.paddingSizeExtraSmall,
-                                  ),
-                                  primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
-                                ),
-                                iconColor: Theme.of(context).disabledColor,
-                                dropdownStyle: DropdownStyle(
-                                  elevation: 10,
-                                  borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                                  padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                                ),
-                                items: unitList,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 8),
-                                  child: Text(
-                                    widget.item != null && storeController.unitList != null ? storeController.unitList![storeController.unitIndex!].unit!.tr : 'unit'.tr,
-                                    style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
-                                  ),
-                                ),
+                              primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
+                            ),
+                            iconColor: Theme.of(context).disabledColor,
+                            dropdownStyle: DropdownStyle(
+                              elevation: 10,
+                              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                              padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                            ),
+                            items: subCategoryList,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                widget.item != null && categoryController.subCategoryIndex != null ? categoryController.subCategoryList![categoryController.subCategoryIndex!].name! : 'sub_category'.tr,
+                                style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
                               ),
                             ),
-                          ) : const SizedBox(),
-
-                        ]) : const SizedBox(),
-
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: Dimensions.paddingSizeDefault),
-
-                  Get.find<SplashController>().getStoreModuleConfig().newVariation! ? FoodVariationViewWidget(
-                    storeController: storeController, item: widget.item,
-                  ) : AttributeViewWidget(storeController: storeController, product: widget.item),
-
-                  _module.addOn! ? Text('addons'.tr, style: robotoBold) : const SizedBox(),
-                  SizedBox(height: _module.addOn! ? Dimensions.paddingSizeSmall : 0),
-
-                  _module.addOn! ? Container(
-                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                      boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
-                    ),
-                    child: Column(
-                      children: [
-                        _module.addOn! ? GetBuilder<AddonController>(builder: (addonController) {
-                          List<int> addons = [];
-                          if(addonController.addonList != null) {
-                            for(int index=0; index<addonController.addonList!.length; index++) {
-                              if(addonController.addonList![index].status == 1 && !storeController.selectedAddons!.contains(index)) {
-                                addons.add(index);
-                              }
-                            }
-                          }
-                          return Autocomplete<int>(
-                            optionsBuilder: (TextEditingValue value) {
-                              if(value.text.isEmpty) {
-                                return const Iterable<int>.empty();
-                              }else {
-                                return addons.where((addon) => addonController.addonList![addon].name!.toLowerCase().contains(value.text.toLowerCase()));
-                              }
-                            },
-                            fieldViewBuilder: (context, controller, node, onComplete) {
-                              _c = controller;
-                              return SizedBox(
-                                height: 50,
-                                child: CustomTextFieldWidget(
-                                  controller: controller,
-                                  focusNode: node,
-                                  hintText: 'addons'.tr,
-                                  labelText: 'addons'.tr,
-                                  onEditingComplete: () {
-                                    onComplete();
-                                    controller.text = '';
-                                  },
-                                ),
-                              );
-                            },
-                            displayStringForOption: (value) => addonController.addonList![value].name!,
-                            onSelected: (int value) {
-                              _c.text = '';
-                              storeController.setSelectedAddonIndex(value, true);
-                              //_addons.removeAt(value);
-                            },
-                          );
-                        }) : const SizedBox(),
-                        SizedBox(height: (_module.addOn! && storeController.selectedAddons!.isNotEmpty) ? Dimensions.paddingSizeSmall : 0),
-
-                        _module.addOn! ? SizedBox(
-                          height: storeController.selectedAddons!.isNotEmpty ? 40 : 0,
-                          child: ListView.builder(
-                            itemCount: storeController.selectedAddons!.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Container(
-                                padding: const EdgeInsets.only(left: Dimensions.paddingSizeExtraSmall),
-                                margin: const EdgeInsets.only(right: Dimensions.paddingSizeSmall),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).disabledColor.withValues(alpha: 0.2),
-                                  borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                                ),
-                                child: Row(children: [
-                                  GetBuilder<AddonController>(builder: (addonController) {
-                                    return Text(
-                                      addonController.addonList![storeController.selectedAddons![index]].name!,
-                                      style: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.7)),
-                                    );
-                                  }),
-                                  InkWell(
-                                    onTap: () => storeController.removeAddon(index),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
-                                      child: Icon(Icons.close, size: 15, color: Theme.of(context).disabledColor.withValues(alpha: 0.7),),
-                                    ),
-                                  ),
-                                ]),
-                              );
-                            },
                           ),
                         ) : const SizedBox(),
-                      ],
-                    ),
-                  ) : const SizedBox(),
-                  SizedBox(height: _module.addOn! ? Dimensions.paddingSizeDefault : 0),
-
-                  Text('tag'.tr, style: robotoBold),
-                  const SizedBox(height: Dimensions.paddingSizeSmall),
-
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                      boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
-                    ),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Row(children: [
-
-                        Expanded(
-                          flex: 8,
-                          child: CustomTextFieldWidget(
-                            hintText: 'tag'.tr,
-                            labelText: 'tag'.tr,
-                            controller: _tagController,
-                            inputAction: TextInputAction.done,
-                            onSubmit: (name){
-                              if(name != null && name.isNotEmpty) {
-                                storeController.setTag(name);
-                                _tagController.text = '';
-                                print('namees =>> $name');
-                              }
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: Dimensions.paddingSizeSmall),
-
-                        Expanded(
-                          flex: 2,
-                          child: CustomButtonWidget(buttonText: 'add'.tr, onPressed: (){
-                            if(_tagController.text != '' && _tagController.text.isNotEmpty) {
-                              storeController.setTag(_tagController.text.trim());
-                              _tagController.text = '';
-                            }
-                          }),
-                        ),
-
-                      ]),
-                      const SizedBox(height: Dimensions.paddingSizeDefault),
-
-                      storeController.tagList.isNotEmpty ? SizedBox(
-                        height: 40,
-                        child: ListView.builder(
-                          shrinkWrap: true, scrollDirection: Axis.horizontal,
-                          itemCount: storeController.tagList.length,
-                          itemBuilder: (context, index){
-                            return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
-                              padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
-                              decoration: BoxDecoration(color: Theme.of(context).disabledColor.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
-                              child: Center(child: Row(children: [
-                                Text(storeController.tagList[index]!, style: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.7))),
-                                const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-
-                                InkWell(onTap: () => storeController.removeTag(index), child: Icon(Icons.clear, size: 18, color: Theme.of(context).disabledColor.withValues(alpha: 0.7))),
-                              ])),
-                            );
-                          }),
-                      ) : const SizedBox(),
-                    ]),
-                  ),
-                  const SizedBox(height: Dimensions.paddingSizeDefault),
-
-                  _module.itemAvailableTime! ? Text('availability'.tr, style: robotoBold) : const SizedBox(),
-                  SizedBox(height: _module.itemAvailableTime! ? Dimensions.paddingSizeSmall : 0),
-
-                  _module.itemAvailableTime! ? Container(
-                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                      boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
-                    ),
-                    child: Column(children: [
-
-                      CustomTimePickerWidget(
-                        title: 'available_time_starts'.tr, time: _item.availableTimeStarts,
-                        onTimeChanged: (time) => _item.availableTimeStarts = time,
-                      ),
-                      const SizedBox(height: Dimensions.paddingSizeExtraOverLarge),
-
-                      CustomTimePickerWidget(
-                        title: 'available_time_ends'.tr, time: _item.availableTimeEnds,
-                        onTimeChanged: (time) => _item.availableTimeEnds = time,
-                      ),
-
-                    ]),
-                  ) : const SizedBox(),
-                  SizedBox(height: _module.itemAvailableTime! ? Dimensions.paddingSizeDefault : 0),
-
-                  Row(children: [
-                    Text('thumbnail_image'.tr, style: robotoBold),
-                    const SizedBox(width: Dimensions.paddingSizeExtraSmall),
-
-                    Text(
-                      '(${'max_size_2_mb'.tr})',
-                      style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: Theme.of(context).colorScheme.error),
-                    ),
-                  ]),
-                  const SizedBox(height: Dimensions.paddingSizeExtraSmall),
-
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                      boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
-                    ),
-                    child: Align(alignment: Alignment.center, child: Stack(children: [
-
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                        child: storeController.rawLogo != null ? GetPlatform.isWeb ? Image.network(
-                          storeController.rawLogo!.path, width: 150, height: 120, fit: BoxFit.cover,
-                        ) : Image.file(
-                          File(storeController.rawLogo!.path), width: 120, height: 120, fit: BoxFit.cover,
-                        ) : FadeInImage.assetNetwork(
-                          placeholder: Images.placeholder,
-                          image: _item.imageFullUrl ?? '',
-                          height: 120, width: 150, fit: BoxFit.cover,
-                          imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, height: 120, width: 150, fit: BoxFit.cover),
-                        ),
-                      ),
-
-                      Positioned(
-                        bottom: 0, right: 0, top: 0, left: 0,
-                        child: InkWell(
-                          onTap: () => storeController.pickImage(true, false),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black.withValues(alpha: 0.3), borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                              border: Border.all(width: 1, color: Theme.of(context).primaryColor),
-                            ),
-                            child: Container(
-                              margin: const EdgeInsets.all(25),
-                              decoration: BoxDecoration(
-                                border: Border.all(width: 2, color: Colors.white),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(Icons.camera_alt, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                    ])),
-                  ),
-                  const SizedBox(height: Dimensions.paddingSizeDefault),
-
-                  Row(children: [
-                    Text('item_images'.tr, style: robotoBold),
-                    const SizedBox(width: Dimensions.paddingSizeSmall),
-
-                    Text(
-                      '(${'max_size_2_mb'.tr})',
-                      style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: Theme.of(context).colorScheme.error),
-                    ),
-                  ]),
-                  const SizedBox(height: Dimensions.paddingSizeSmall),
-
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
-                      boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
-                    ),
-                    child: GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3, childAspectRatio: (1/1),
-                        mainAxisSpacing: Dimensions.paddingSizeSmall, crossAxisSpacing: Dimensions.paddingSizeSmall,
-                      ),
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: storeController.savedImages.length+storeController.rawImages.length+1,
-                      itemBuilder: (context, index) {
-                        bool savedImage = index < storeController.savedImages.length;
-                        XFile? file = (savedImage || index == (storeController.rawImages.length + storeController.savedImages.length))
-                            ? null : storeController.rawImages[index-storeController.savedImages.length];
-                        if(index == (storeController.rawImages.length + storeController.savedImages.length)) {
-                          return InkWell(
-                            onTap: () {
-                              if((storeController.savedImages.length+storeController.rawImages.length) < 6) {
-                                storeController.pickImages();
-                              }else {
-                                showCustomSnackBar('maximum_image_limit_is_6'.tr);
-                              }
-                            },
-                            child: Container(
-                              height: context.width, width: context.width, alignment: Alignment.center, decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                              border: Border.all(color: Theme.of(context).primaryColor, width: 2),
-                            ),
-                              child: Container(
-                                padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 2, color: Theme.of(context).primaryColor),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(Icons.camera_alt, color: Theme.of(context).primaryColor),
-                              ),
-                            ),
-                          );
-                        }
-                        return Container(
+                        SizedBox(height: categoryController.subCategoryList != null && categoryController.subCategoryList!.isNotEmpty ? Dimensions.paddingSizeExtraOverLarge : 0),
+                  
+                        isPharmacy ? Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Theme.of(context).primaryColor, width: 2),
-                            borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                            color: Theme.of(context).cardColor,
+                            border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
                           ),
-                          child: Stack(children: [
-
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
-                              child: savedImage ? CustomImageWidget(
-                                image: storeController.savedImages[index],
-                                width: context.width, height: context.width, fit: BoxFit.cover,
-                              ) : GetPlatform.isWeb ? Image.network(
-                                file!.path, width: context.width, height: context.width, fit: BoxFit.cover,
-                              ) : Image.file(
-                                File(file!.path), width: context.width, height: context.width, fit: BoxFit.cover,
-                              ) ,
+                          child: CustomDropdown(
+                            onChange: (int? value, int index) {
+                              storeController.setSuitableTagIndex(value!, true);
+                            },
+                            dropdownButtonStyle: DropdownButtonStyle(
+                              height: 45,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: Dimensions.paddingSizeExtraSmall,
+                                horizontal: Dimensions.paddingSizeExtraSmall,
+                              ),
+                              primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
                             ),
-
-                            Positioned(
-                              right: 0, top: 0,
-                              child: InkWell(
-                                onTap: () {
-                                  if(savedImage) {
-                                    storeController.removeSavedImage(index);
+                            iconColor: Theme.of(context).disabledColor,
+                            dropdownStyle: DropdownStyle(
+                              elevation: 10,
+                              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                              padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                            ),
+                            items: suitableTagList,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                widget.item != null && storeController.suitableTagIndex != null ? storeController.suitableTagList![storeController.suitableTagIndex!].name! : 'suitable_for'.tr,
+                                style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
+                              ),
+                            ),
+                          ),
+                        ) : const SizedBox(),
+                        SizedBox(height: isPharmacy ? Dimensions.paddingSizeExtraOverLarge : 0),
+                  
+                        isEcommerce ? Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                            color: Theme.of(context).cardColor,
+                            border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
+                          ),
+                          child: CustomDropdown(
+                            onChange: (int? value, int index) {
+                              storeController.setBrandIndex(value!, true);
+                            },
+                            dropdownButtonStyle: DropdownButtonStyle(
+                              height: 45,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: Dimensions.paddingSizeExtraSmall,
+                                horizontal: Dimensions.paddingSizeExtraSmall,
+                              ),
+                              primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
+                            ),
+                            iconColor: Theme.of(context).disabledColor,
+                            dropdownStyle: DropdownStyle(
+                              elevation: 10,
+                              borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                              padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                            ),
+                            items: brandList,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Text(
+                                widget.item != null && storeController.brandIndex != null ? storeController.brandList![storeController.brandIndex!].name! : 'brand'.tr,
+                                style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
+                              ),
+                            ),
+                          ),
+                        ) : const SizedBox(),
+                        SizedBox(height: isEcommerce ? Dimensions.paddingSizeExtraOverLarge : 0),
+                  
+                        isPharmacy ? Column(children: [
+                          Row(children: [
+                            Expanded(
+                              child: Autocomplete<int>(
+                                optionsBuilder: (TextEditingValue value) {
+                                  if(value.text.isEmpty) {
+                                    return const Iterable<int>.empty();
                                   }else {
-                                    storeController.removeImage(index - storeController.savedImages.length);
+                                    return genericNameSuggestion.where((genericName) => storeController.genericNameSuggestionList![genericName]!.toLowerCase().contains(value.text.toLowerCase()));
                                   }
                                 },
-                                child: const Padding(
-                                  padding: EdgeInsets.all(Dimensions.paddingSizeSmall),
-                                  child: Icon(Icons.delete_forever, color: Colors.red),
+                                optionsViewBuilder: (context, onAutoCompleteSelect, options) {
+                                  List<int> result = TypeConverter.convertIntoListOfInteger(options.toString());
+                  
+                                  return Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Material(
+                                      color: Theme.of(context).primaryColorLight,
+                                      elevation: 4.0,
+                                      child: Container(
+                                        color: Theme.of(context).cardColor,
+                                        width: MediaQuery.of(context).size.width - 110,
+                                        child: ListView.separated(
+                                          shrinkWrap: true,
+                                          padding: const EdgeInsets.all(8.0),
+                                          itemCount: result.length,
+                                          separatorBuilder: (context, i) {
+                                            return const Divider(height: 0,);
+                                          },
+                                          itemBuilder: (BuildContext context, int index) {
+                                            return CustomInkWellWidget(
+                                              onTap: () {
+                                                if(storeController.selectedGenericNameList!.length > 1) {
+                                                }else {
+                                                  _genericNameSuggestionController.text = storeController.genericNameSuggestionList![result[index]]!;
+                                                  storeController.setSelectedGenericNameIndex(result[index], true);
+                                                }
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
+                                                child: Text(storeController.genericNameSuggestionList![result[index]]!),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                fieldViewBuilder: (context, genericNameController, node, onComplete) {
+                                  genericNameController.text = _genericNameSuggestionController.text;
+                                  return Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
+                                    child: TextField(
+                                      controller: genericNameController,
+                                      focusNode: node,
+                                      onEditingComplete: () {
+                                        node.unfocus();
+                                        _genericNameSuggestionController.text = genericNameController.text;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: 'generic_name'.tr,
+                                        labelText: 'generic_name'.tr,
+                                        hintStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
+                                        labelStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                                          borderSide: BorderSide(color: Theme.of(context).disabledColor, width: 0.3),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                                          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                                        ),
+                                        suffixIcon: CustomToolTip(
+                                          message: 'specify_the_medicine_active_ingredient_that_makes_it_work'.tr,
+                                          preferredDirection: AxisDirection.up,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                displayStringForOption: (value) => storeController.genericNameSuggestionList![value]!,
+                                onSelected: (int value) {
+                                  if(storeController.selectedGenericNameList!.length > 1) {
+                                  }else {
+                                    _genericNameSuggestionController.text = storeController.genericNameSuggestionList![value]!;
+                                    storeController.setSelectedGenericNameIndex(value, true);
+                                  }
+                                },
+                              ),
+                            ),
+                          ]),
+                        ]) : const SizedBox(),
+                        SizedBox(height: isPharmacy ? Dimensions.paddingSizeExtraOverLarge : 0),
+                  
+                        isFood || isGrocery ? Column(children: [
+                          Row(children: [
+                            Expanded(
+                              flex: 8,
+                              child: Autocomplete<int>(
+                                optionsBuilder: (TextEditingValue value) {
+                                  if(value.text.isEmpty) {
+                                    return const Iterable<int>.empty();
+                                  }else {
+                                    return nutritionSuggestion.where((nutrition) => storeController.nutritionSuggestionList![nutrition]!.toLowerCase().contains(value.text.toLowerCase()));
+                                  }
+                                },
+                                optionsViewBuilder: (context, onAutoCompleteSelect, options) {
+                                  List<int> result = TypeConverter.convertIntoListOfInteger(options.toString());
+                  
+                                  return Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Material(
+                                      color: Theme.of(context).primaryColorLight,
+                                      elevation: 4.0,
+                                      child: Container(
+                                          color: Theme.of(context).cardColor,
+                                          width: MediaQuery.of(context).size.width - 110,
+                                          child: ListView.separated(
+                                            shrinkWrap: true,
+                                            padding: const EdgeInsets.all(8.0),
+                                            itemCount: result.length,
+                                            separatorBuilder: (context, i) {
+                                              return const Divider(height: 0,);
+                                            },
+                                            itemBuilder: (BuildContext context, int index) {
+                                              return CustomInkWellWidget(
+                                                onTap: () {
+                                                  if(storeController.selectedNutritionList!.length >= 5) {
+                                                    showCustomSnackBar('you_can_select_or_add_maximum_5_nutrition'.tr, isError: true);
+                                                  }else {
+                                                    _nutritionSuggestionController.text = '';
+                                                    storeController.setSelectedNutritionIndex(result[index], true);
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
+                                                  child: Text(storeController.nutritionSuggestionList![result[index]]!),
+                                                ),
+                                              );
+                                            },
+                                          )
+                                      ),
+                                    ),
+                                  );
+                                },
+                                fieldViewBuilder: (context, controller, node, onComplete) {
+                                  _nutritionSuggestionController = controller;
+                                  return Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
+                                    child: TextField(
+                                      controller: controller,
+                                      focusNode: node,
+                                      onEditingComplete: () {
+                                        onComplete();
+                                        controller.text = '';
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: 'type_and_click_add_button'.tr,
+                                        labelText: 'nutrition'.tr,
+                                        labelStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
+                                        hintStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                                          borderSide: BorderSide(color: Theme.of(context).disabledColor, width: 0.3),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                                          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                                        ),
+                                        suffixIcon: CustomToolTip(
+                                          message: 'specify_the_necessary_keywords_relating_to_energy_values_for_the_item'.tr,
+                                          preferredDirection: AxisDirection.up,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                displayStringForOption: (value) => storeController.nutritionSuggestionList![value]!,
+                                onSelected: (int value) {
+                                  if(storeController.selectedNutritionList!.length >= 5) {
+                                    showCustomSnackBar('you_can_select_or_add_maximum_5_nutrition'.tr, isError: true);
+                                  }else {
+                                    _nutritionSuggestionController.text = '';
+                                    storeController.setSelectedNutritionIndex(value, true);
+                                  }
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: Dimensions.paddingSizeDefault),
+                  
+                            Expanded(
+                              flex: 2,
+                              child: CustomButtonWidget(buttonText: 'add'.tr, onPressed: (){
+                                if(storeController.selectedNutritionList!.length >= 5) {
+                                  showCustomSnackBar('you_can_select_or_add_maximum_5_nutrition'.tr, isError: true);
+                                }else{
+                                  if(_nutritionSuggestionController.text.isNotEmpty) {
+                                    storeController.setNutrition(_nutritionSuggestionController.text.trim());
+                                    _nutritionSuggestionController.text = '';
+                                  }
+                                }
+                              }),
+                            ),
+                          ]),
+                          SizedBox(height: storeController.selectedNutritionList != null ? Dimensions.paddingSizeSmall : 0),
+                  
+                          storeController.selectedNutritionList != null ? SizedBox(
+                            height: storeController.selectedNutritionList!.isNotEmpty ? 40 : 0,
+                            child: ListView.builder(
+                              itemCount: storeController.selectedNutritionList!.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: const EdgeInsets.only(left: Dimensions.paddingSizeExtraSmall),
+                                  margin: const EdgeInsets.only(right: Dimensions.paddingSizeSmall),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).disabledColor.withValues(alpha: 0.2),
+                                    borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                  ),
+                                  child: Row(children: [
+                  
+                                    Text(
+                                      storeController.selectedNutritionList![index]!,
+                                      style: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.7)),
+                                    ),
+                  
+                                    InkWell(
+                                      onTap: () => storeController.removeNutrition(index),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                                        child: Icon(Icons.close, size: 15, color: Theme.of(context).disabledColor.withValues(alpha: 0.7)),
+                                      ),
+                                    ),
+                  
+                                  ]),
+                                );
+                              },
+                            ),
+                          ) : const SizedBox(),
+                        ]) : const SizedBox(),
+                        SizedBox(height: isFood || isGrocery ? Dimensions.paddingSizeExtraOverLarge : 0),
+                  
+                        isFood || isGrocery ? Column(children: [
+                          Row(children: [
+                            Expanded(
+                              flex: 8,
+                              child: Autocomplete<int>(
+                                optionsBuilder: (TextEditingValue value) {
+                                  if(value.text.isEmpty) {
+                                    return const Iterable<int>.empty();
+                                  }else {
+                                    return allergicIngredientsSuggestion.where((allergicIngredients) => storeController.allergicIngredientsSuggestionList![allergicIngredients]!.toLowerCase().contains(value.text.toLowerCase()));
+                                  }
+                                },
+                                optionsViewBuilder: (context, onAutoCompleteSelect, options) {
+                                  List<int> result = TypeConverter.convertIntoListOfInteger(options.toString());
+                  
+                                  return Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Material(
+                                      color: Theme.of(context).primaryColorLight,
+                                      elevation: 4.0,
+                                      child: Container(
+                                          color: Theme.of(context).cardColor,
+                                          width: MediaQuery.of(context).size.width - 110,
+                                          child: ListView.separated(
+                                            shrinkWrap: true,
+                                            padding: const EdgeInsets.all(8.0),
+                                            itemCount: result.length,
+                                            separatorBuilder: (context, i) {
+                                              return const Divider(height: 0,);
+                                            },
+                                            itemBuilder: (BuildContext context, int index) {
+                                              return CustomInkWellWidget(
+                                                onTap: () {
+                                                  if(storeController.selectedAllergicIngredientsList!.length >= 5) {
+                                                    showCustomSnackBar('you_can_select_or_add_maximum_5_allergic_ingredients'.tr, isError: true);
+                                                  }else {
+                                                    _allergicIngredientsSuggestionController.text = '';
+                                                    storeController.setSelectedAllergicIngredientsIndex(result[index], true);
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(vertical: Dimensions.paddingSizeSmall),
+                                                  child: Text(storeController.allergicIngredientsSuggestionList![result[index]]!),
+                                                ),
+                                              );
+                                            },
+                                          )
+                                      ),
+                                    ),
+                                  );
+                                },
+                                fieldViewBuilder: (context, controller, node, onComplete) {
+                                  _allergicIngredientsSuggestionController = controller;
+                                  return Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
+                                    child: TextField(
+                                      controller: controller,
+                                      focusNode: node,
+                                      onEditingComplete: () {
+                                        onComplete();
+                                        controller.text = '';
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: 'type_and_click_add_button'.tr,
+                                        labelText: 'allergic_ingredients'.tr,
+                                        hintStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
+                                        labelStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.8)),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                                          borderSide: BorderSide(color: Theme.of(context).disabledColor, width: 0.3),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                                          borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                                        ),
+                                        suffixIcon: CustomToolTip(
+                                          message: 'specify_the_ingredients_of_the_item_which_can_make_a_reaction_as_an_allergen'.tr,
+                                          preferredDirection: AxisDirection.up,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                displayStringForOption: (value) => storeController.allergicIngredientsSuggestionList![value]!,
+                                onSelected: (int value) {
+                                  if(storeController.selectedAllergicIngredientsList!.length >= 5) {
+                                    showCustomSnackBar('you_can_select_or_add_maximum_5_allergic_ingredients'.tr, isError: true);
+                                  }else {
+                                    _allergicIngredientsSuggestionController.text = '';
+                                    storeController.setSelectedAllergicIngredientsIndex(value, true);
+                                  }
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: Dimensions.paddingSizeDefault),
+                  
+                            Expanded(
+                              flex: 2,
+                              child: CustomButtonWidget(buttonText: 'add'.tr, onPressed: (){
+                                if(storeController.selectedAllergicIngredientsList!.length >= 5) {
+                                  showCustomSnackBar('you_can_select_or_add_maximum_5_allergic_ingredients'.tr, isError: true);
+                                }else{
+                                  if(_allergicIngredientsSuggestionController.text.isNotEmpty) {
+                                    storeController.setAllergicIngredients(_allergicIngredientsSuggestionController.text.trim());
+                                    _allergicIngredientsSuggestionController.text = '';
+                                  }
+                                }
+                              }),
+                            ),
+                          ]),
+                          SizedBox(height: storeController.selectedAllergicIngredientsList != null ? Dimensions.paddingSizeSmall : 0),
+                  
+                          storeController.selectedAllergicIngredientsList != null ? SizedBox(
+                            height: storeController.selectedAllergicIngredientsList!.isNotEmpty ? 40 : 0,
+                            child: ListView.builder(
+                              itemCount: storeController.selectedAllergicIngredientsList!.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: const EdgeInsets.only(left: Dimensions.paddingSizeExtraSmall),
+                                  margin: const EdgeInsets.only(right: Dimensions.paddingSizeSmall),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).disabledColor.withValues(alpha: 0.2),
+                                    borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                  ),
+                                  child: Row(children: [
+                  
+                                    Text(
+                                      storeController.selectedAllergicIngredientsList![index]!,
+                                      style: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.7)),
+                                    ),
+                  
+                                    InkWell(
+                                      onTap: () => storeController.removeAllergicIngredients(index),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                                        child: Icon(Icons.close, size: 15, color: Theme.of(context).disabledColor.withValues(alpha: 0.7)),
+                                      ),
+                                    ),
+                  
+                                  ]),
+                                );
+                              },
+                            ),
+                          ) : const SizedBox(),
+                        ]) : const SizedBox(),
+                        SizedBox(height: isFood || isGrocery ? Dimensions.paddingSizeExtraOverLarge : 0),
+                  
+                        (_module.vegNonVeg! && Get.find<SplashController>().configModel!.toggleVegNonVeg!) ? Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text('item_type'.tr, style: robotoMedium),
+                        ) : const SizedBox(),
+                  
+                        (_module.vegNonVeg! && Get.find<SplashController>().configModel!.toggleVegNonVeg!) ? Row(children: [
+                          Expanded(child: RadioListTile<String>(
+                            title: Text('non_veg'.tr, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+                            groupValue: storeController.isVeg ? 'veg' : 'non_veg',
+                            value: 'non_veg',
+                            contentPadding: EdgeInsets.zero,
+                            onChanged: (String? value) => storeController.setVeg(value == 'veg', true),
+                            activeColor: Theme.of(context).primaryColor,
+                          )),
+                          const SizedBox(width: Dimensions.paddingSizeSmall),
+                  
+                          Expanded(child: RadioListTile<String>(
+                            title: Text('veg'.tr, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall)),
+                            groupValue: storeController.isVeg ? 'veg' : 'non_veg',
+                            value: 'veg',
+                            contentPadding: EdgeInsets.zero,
+                            onChanged: (String? value) => storeController.setVeg(value == 'veg', true),
+                            activeColor: Theme.of(context).primaryColor,
+                            dense: false,
+                          )),
+                        ]) : const SizedBox(),
+                        SizedBox(height: (_module.vegNonVeg! && Get.find<SplashController>().configModel!.toggleVegNonVeg!) ? Dimensions.paddingSizeSmall : 0),
+                  
+                        (isFood || isGrocery) && storeHalalActive ? ListTile(
+                          onTap: () => storeController.toggleHalal(),
+                          leading: Checkbox(
+                            activeColor: Theme.of(context).primaryColor,
+                            value: storeController.isHalal,
+                            onChanged: (bool? isChecked) => storeController.toggleHalal(),
+                          ),
+                          title: Text('is_it_halal'.tr, style: robotoMedium),
+                          contentPadding: EdgeInsets.zero,
+                          dense: true,
+                          horizontalTitleGap: 0,
+                        ) : const SizedBox(),
+                  
+                        isPharmacy ? ListTile(
+                          onTap: () => storeController.toggleBasicMedicine(),
+                          leading: Checkbox(
+                            activeColor: Theme.of(context).primaryColor,
+                            value: storeController.isBasicMedicine,
+                            onChanged: (bool? isChecked) => storeController.toggleBasicMedicine(),
+                          ),
+                          title: Text('is_basic_medicine'.tr, style: robotoMedium),
+                          contentPadding: EdgeInsets.zero,
+                          dense: true,
+                          horizontalTitleGap: 0,
+                        ) : const SizedBox(),
+                  
+                      ]),
+                    ),
+                    const SizedBox(height: Dimensions.paddingSizeDefault),
+                  
+                    isPharmacy ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text('prescription_required'.tr, style: robotoBold),
+                      const SizedBox(height: Dimensions.paddingSizeSmall),
+                  
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).cardColor,
+                          borderRadius: BorderRadius.circular(Dimensions.radiusDefault - 2),
+                          boxShadow:const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
+                        ),
+                        child: ListTile(
+                          onTap: () => storeController.togglePrescriptionRequired(),
+                          leading: Checkbox(
+                            activeColor: Theme.of(context).primaryColor,
+                            value: storeController.isPrescriptionRequired,
+                            onChanged: (bool? isChecked) => storeController.togglePrescriptionRequired(),
+                          ),
+                          title: Text('this_item_need_prescription_to_place_order'.tr, style: robotoMedium),
+                          contentPadding: EdgeInsets.zero,
+                          dense: true,
+                          horizontalTitleGap: 0,
+                        ),
+                      ),
+                    ]) : const SizedBox(),
+                    SizedBox(height: isPharmacy ? Dimensions.paddingSizeDefault : 0),
+                  
+                    Text('MRP Info'.tr, style: robotoBold),
+                    const SizedBox(height: Dimensions.paddingSizeSmall),
+                  
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                        boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
+                      ),
+                      child: Column(
+                        children: [
+                  
+                          CustomTextFieldWidget(
+                            hintText: 'MRP'.tr,
+                            labelText: 'MRP'.tr,
+                            controller: _priceController,
+                            focusNode: _priceNode,
+                            nextFocus: _discountNode,
+                            isAmount: true,
+                          ),
+                          const SizedBox(height: Dimensions.paddingSizeExtraOverLarge),
+                  
+                          Row(children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                                  color: Theme.of(context).cardColor,
+                                  border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
+                                ),
+                                child: CustomDropdown(
+                                  onChange: (int? value, int index) {
+                                    storeController.setDiscountTypeIndex(value!, true);
+                                    _validateDiscount();
+                                  },
+                                  dropdownButtonStyle: DropdownButtonStyle(
+                                    height: 45,
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: Dimensions.paddingSizeExtraSmall,
+                                      horizontal: Dimensions.paddingSizeExtraSmall,
+                                    ),
+                                    primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
+                                  ),
+                                  iconColor: Theme.of(context).disabledColor,
+                                  dropdownStyle: DropdownStyle(
+                                    elevation: 10,
+                                    borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                                    padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                                  ),
+                                  items: discountTypeList,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: Text(
+                                      widget.item != null ? storeController.discountTypeList[storeController.discountTypeIndex]!.tr : 'discount_type'.tr,
+                                      style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-
+                            const SizedBox(width: Dimensions.paddingSizeDefault),
+                  
+                            Expanded(
+                              child: CustomTextFieldWidget(
+                                hintText: 'discount'.tr,
+                                labelText: 'discount'.tr,
+                                controller: _discountController,
+                                focusNode: _discountNode,
+                                isAmount: true,
+                                onChanged: (value) => _validateDiscount(),
+                              ),
+                            ),
                           ]),
-                        );
-                      },
+                          const SizedBox(height: Dimensions.paddingSizeExtraOverLarge),
+                  
+                          CustomTextFieldWidget(
+                            hintText: 'maximum_order_quantity'.tr,
+                            labelText: 'maximum_order_quantity'.tr,
+                            controller: _maxOrderQuantityController,
+                            isNumber: true,
+                          ),
+                          SizedBox(height: (_module.stock! || _module.unit!) ? Dimensions.paddingSizeExtraOverLarge : 0),
+                  
+                          (_module.stock! || _module.unit!) ? Row(children: [
+                            _module.stock! ? Expanded(child: CustomTextFieldWidget(
+                              hintText: 'total_stock'.tr,
+                              labelText: 'total_stock'.tr,
+                              controller: _stockController,
+                              isNumber: true,
+                              isEnabled: storeController.variantTypeList!.isEmpty,
+                            )) : const SizedBox(),
+                            SizedBox(width: _module.stock! ? Dimensions.paddingSizeSmall : 0),
+                  
+                            _module.unit! ? Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                                  color: Theme.of(context).cardColor,
+                                  border: Border.all(color: Theme.of(context).disabledColor, width: 0.5),
+                                ),
+                                child: CustomDropdown(
+                                  onChange: (int? value, int index) {
+                                    storeController.setUnitIndex(value!, true);
+                                    print("valiue=>> $value");
+                                    print("valiue=>> $index");
+                                  },
+                                  dropdownButtonStyle: DropdownButtonStyle(
+                                    height: 45,
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: Dimensions.paddingSizeExtraSmall,
+                                      horizontal: Dimensions.paddingSizeExtraSmall,
+                                    ),
+                                    primaryColor: Theme.of(context).textTheme.bodyLarge!.color,
+                                  ),
+                                  iconColor: Theme.of(context).disabledColor,
+                                  dropdownStyle: DropdownStyle(
+                                    elevation: 10,
+                                    borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                                    padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                                  ),
+                                  items: unitList,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: Text(
+                                      widget.item != null && storeController.unitList != null ? storeController.unitList![storeController.unitIndex!].unit!.tr : 'unit'.tr,
+                                      style: robotoRegular.copyWith(color: Theme.of(context).disabledColor),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ) : const SizedBox(),
+                  
+                          ]) : const SizedBox(),
+                  
+                        ],
+                      ),
                     ),
-                  ),
-
-                ]),
+                    const SizedBox(height: Dimensions.paddingSizeDefault),
+                  
+                    Get.find<SplashController>().getStoreModuleConfig().newVariation! ? FoodVariationViewWidget(
+                      storeController: storeController, item: widget.item,
+                    ) : AttributeViewWidget(storeController: storeController, product: widget.item),
+                  
+                    _module.addOn! ? Text('addons'.tr, style: robotoBold) : const SizedBox(),
+                    SizedBox(height: _module.addOn! ? Dimensions.paddingSizeSmall : 0),
+                  
+                    _module.addOn! ? Container(
+                      padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                        boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
+                      ),
+                      child: Column(
+                        children: [
+                          _module.addOn! ? GetBuilder<AddonController>(builder: (addonController) {
+                            List<int> addons = [];
+                            if(addonController.addonList != null) {
+                              for(int index=0; index<addonController.addonList!.length; index++) {
+                                if(addonController.addonList![index].status == 1 && !storeController.selectedAddons!.contains(index)) {
+                                  addons.add(index);
+                                }
+                              }
+                            }
+                            return Autocomplete<int>(
+                              optionsBuilder: (TextEditingValue value) {
+                                if(value.text.isEmpty) {
+                                  return const Iterable<int>.empty();
+                                }else {
+                                  return addons.where((addon) => addonController.addonList![addon].name!.toLowerCase().contains(value.text.toLowerCase()));
+                                }
+                              },
+                              fieldViewBuilder: (context, controller, node, onComplete) {
+                                _c = controller;
+                                return SizedBox(
+                                  height: 50,
+                                  child: CustomTextFieldWidget(
+                                    controller: controller,
+                                    focusNode: node,
+                                    hintText: 'addons'.tr,
+                                    labelText: 'addons'.tr,
+                                    onEditingComplete: () {
+                                      onComplete();
+                                      controller.text = '';
+                                    },
+                                  ),
+                                );
+                              },
+                              displayStringForOption: (value) => addonController.addonList![value].name!,
+                              onSelected: (int value) {
+                                _c.text = '';
+                                storeController.setSelectedAddonIndex(value, true);
+                                //_addons.removeAt(value);
+                              },
+                            );
+                          }) : const SizedBox(),
+                          SizedBox(height: (_module.addOn! && storeController.selectedAddons!.isNotEmpty) ? Dimensions.paddingSizeSmall : 0),
+                  
+                          _module.addOn! ? SizedBox(
+                            height: storeController.selectedAddons!.isNotEmpty ? 40 : 0,
+                            child: ListView.builder(
+                              itemCount: storeController.selectedAddons!.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: const EdgeInsets.only(left: Dimensions.paddingSizeExtraSmall),
+                                  margin: const EdgeInsets.only(right: Dimensions.paddingSizeSmall),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).disabledColor.withValues(alpha: 0.2),
+                                    borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                  ),
+                                  child: Row(children: [
+                                    GetBuilder<AddonController>(builder: (addonController) {
+                                      return Text(
+                                        addonController.addonList![storeController.selectedAddons![index]].name!,
+                                        style: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.7)),
+                                      );
+                                    }),
+                                    InkWell(
+                                      onTap: () => storeController.removeAddon(index),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(Dimensions.paddingSizeExtraSmall),
+                                        child: Icon(Icons.close, size: 15, color: Theme.of(context).disabledColor.withValues(alpha: 0.7),),
+                                      ),
+                                    ),
+                                  ]),
+                                );
+                              },
+                            ),
+                          ) : const SizedBox(),
+                        ],
+                      ),
+                    ) : const SizedBox(),
+                    SizedBox(height: _module.addOn! ? Dimensions.paddingSizeDefault : 0),
+                  
+                    Text('tag'.tr, style: robotoBold),
+                    const SizedBox(height: Dimensions.paddingSizeSmall),
+                  
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                        boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
+                      ),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [
+                        Row(children: [
+                  
+                          Expanded(
+                            flex: 8,
+                            child: CustomTextFieldWidget(
+                              hintText: 'tag'.tr,
+                              labelText: 'tag'.tr,
+                              controller: _tagController,
+                              inputAction: TextInputAction.done,
+                              onSubmit: (name){
+                                if(name != null && name.isNotEmpty) {
+                                  storeController.setTag(name);
+                                  _tagController.text = '';
+                                  print('namees =>> $name');
+                                }
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: Dimensions.paddingSizeSmall),
+                  
+                          Expanded(
+                            flex: 2,
+                            child: CustomButtonWidget(buttonText: 'add'.tr, onPressed: (){
+                              if(_tagController.text != '' && _tagController.text.isNotEmpty) {
+                                storeController.setTag(_tagController.text.trim());
+                                _tagController.text = '';
+                              }
+                            }),
+                          ),
+                  
+                        ]),
+                        const SizedBox(height: Dimensions.paddingSizeDefault),
+                  
+                        storeController.tagList.isNotEmpty ? SizedBox(
+                          height: 40,
+                          child: ListView.builder(
+                            shrinkWrap: true, scrollDirection: Axis.horizontal,
+                            itemCount: storeController.tagList.length,
+                            itemBuilder: (context, index){
+                              return Container(
+                                margin: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeExtraSmall),
+                                padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall),
+                                decoration: BoxDecoration(color: Theme.of(context).disabledColor.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(Dimensions.radiusSmall)),
+                                child: Center(child: Row(children: [
+                                  Text(storeController.tagList[index]!, style: robotoRegular.copyWith(color: Theme.of(context).disabledColor.withValues(alpha: 0.7))),
+                                  const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                  
+                                  InkWell(onTap: () => storeController.removeTag(index), child: Icon(Icons.clear, size: 18, color: Theme.of(context).disabledColor.withValues(alpha: 0.7))),
+                                ])),
+                              );
+                            }),
+                        ) : const SizedBox(),
+                      ]),
+                    ),
+                    const SizedBox(height: Dimensions.paddingSizeDefault),
+                  
+                    _module.itemAvailableTime! ? Text('availability'.tr, style: robotoBold) : const SizedBox(),
+                    SizedBox(height: _module.itemAvailableTime! ? Dimensions.paddingSizeSmall : 0),
+                  
+                    _module.itemAvailableTime! ? Container(
+                      padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                        boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
+                      ),
+                      child: Column(children: [
+                  
+                        CustomTimePickerWidget(
+                          title: 'available_time_starts'.tr, time: _item.availableTimeStarts,
+                          onTimeChanged: (time) => _item.availableTimeStarts = time,
+                        ),
+                        const SizedBox(height: Dimensions.paddingSizeExtraOverLarge),
+                  
+                        CustomTimePickerWidget(
+                          title: 'available_time_ends'.tr, time: _item.availableTimeEnds,
+                          onTimeChanged: (time) => _item.availableTimeEnds = time,
+                        ),
+                  
+                      ]),
+                    ) : const SizedBox(),
+                    SizedBox(height: _module.itemAvailableTime! ? Dimensions.paddingSizeDefault : 0),
+                  
+                    Row(children: [
+                      Text('thumbnail_image'.tr, style: robotoBold),
+                      const SizedBox(width: Dimensions.paddingSizeExtraSmall),
+                      Text(
+                        '(${'max_size_10_mb'.tr})',
+                        style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: Theme.of(context).colorScheme.error),
+                      ),
+                    ]),
+                    const SizedBox(height: Dimensions.paddingSizeExtraSmall),
+                  
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                        boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
+                      ),
+                      child: Align(alignment: Alignment.center, child: Stack(children: [
+                  
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                          child: storeController.rawLogo != null ? GetPlatform.isWeb ? Image.network(
+                            storeController.rawLogo!.path, width: 150, height: 120, fit: BoxFit.cover,
+                          ) : Image.file(
+                            File(storeController.rawLogo!.path), width: 120, height: 120, fit: BoxFit.cover,
+                          ) : FadeInImage.assetNetwork(
+                            placeholder: Images.placeholder,
+                            image: _item.imageFullUrl ?? '',
+                            height: 120, width: 150, fit: BoxFit.cover,
+                            imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, height: 120, width: 150, fit: BoxFit.cover),
+                          ),
+                        ),
+                  
+                        Positioned(
+                          bottom: 0, right: 0, top: 0, left: 0,
+                          child: InkWell(
+                            // onTap: () => storeController.pickImage(true, false),
+                            onTap: () => storeController.pickImage(true, false),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.3), borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                border: Border.all(width: 1, color: Theme.of(context).primaryColor),
+                              ),
+                              child: Container(
+                                margin: const EdgeInsets.all(25),
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 2, color: Colors.white),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(Icons.camera_alt, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                  
+                      ])),
+                    ),
+                    const SizedBox(height: Dimensions.paddingSizeDefault),
+                  
+                    Row(children: [
+                      Text('item_images'.tr, style: robotoBold),
+                      const SizedBox(width: Dimensions.paddingSizeSmall),
+                  
+                      Text(
+                        '(${'max_size_10_mb'.tr})',
+                        style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: Theme.of(context).colorScheme.error),
+                      ),
+                    ]),
+                    const SizedBox(height: Dimensions.paddingSizeSmall),
+                  
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeSmall, vertical: Dimensions.paddingSizeLarge),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
+                        boxShadow: const [BoxShadow(color: Colors.black12, spreadRadius: 0, blurRadius: 5)],
+                      ),
+                      child: GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3, childAspectRatio: (1/1),
+                          mainAxisSpacing: Dimensions.paddingSizeSmall, crossAxisSpacing: Dimensions.paddingSizeSmall,
+                        ),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: storeController.savedImages.length+storeController.rawImages.length+1,
+                        itemBuilder: (context, index) {
+                          bool savedImage = index < storeController.savedImages.length;
+                          XFile? file = (savedImage || index == (storeController.rawImages.length + storeController.savedImages.length))
+                              ? null : storeController.rawImages[index-storeController.savedImages.length];
+                          if(index == (storeController.rawImages.length + storeController.savedImages.length)) {
+                            return InkWell(
+                              // onTap: () {
+                              //   if((storeController.savedImages.length+storeController.rawImages.length) < 6) {
+                              //     storeController.pickImages();
+                              //   }else {
+                              //     showCustomSnackBar('maximum_image_limit_is_6'.tr);
+                              //   }
+                              // },
+                              onTap: (storeController.savedImages.length + storeController.rawImages.length) < 6 && !storeController.isLoading && !storeController.isPickingImage
+                                  ? () => storeController.pickImages()
+                                  : null,
+                              child: Container(
+                                height: context.width, width: context.width, alignment: Alignment.center, decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                border: Border.all(color: Theme.of(context).primaryColor, width: 2),
+                              ),
+                                child: Container(
+                                  padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 2, color: Theme.of(context).primaryColor),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(Icons.camera_alt, color: Theme.of(context).primaryColor),
+                                ),
+                              ),
+                            );
+                          }
+                          return Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Theme.of(context).primaryColor, width: 2),
+                              borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                            ),
+                            child: Stack(children: [
+                  
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
+                                child: savedImage ? CustomImageWidget(
+                                  image: storeController.savedImages[index],
+                                  width: context.width, height: context.width, fit: BoxFit.cover,
+                                ) : GetPlatform.isWeb ? Image.network(
+                                  file!.path, width: context.width, height: context.width, fit: BoxFit.cover,
+                                ) : Image.file(
+                                  File(file!.path), width: context.width, height: context.width, fit: BoxFit.cover,
+                                ) ,
+                              ),
+                  
+                              Positioned(
+                                right: 0, top: 0,
+                                child: InkWell(
+                                  onTap: () {
+                                    if(savedImage) {
+                                      storeController.removeSavedImage(index);
+                                    }else {
+                                      storeController.removeImage(index - storeController.savedImages.length);
+                                    }
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(Dimensions.paddingSizeSmall),
+                                    child: Icon(Icons.delete_forever, color: Colors.red),
+                                  ),
+                                ),
+                              ),
+                  
+                            ]),
+                          );
+                        },
+                      ),
+                    ),
+                  
+                  ]),
+                ),
               )),
 
               !storeController.isLoading ? CustomButtonWidget(
@@ -1501,6 +1506,7 @@ class _AddItemScreenState extends State<AddItemScreen> with TickerProviderStateM
                 margin: const EdgeInsets.all(Dimensions.paddingSizeSmall),
                 height: 50,
                 onPressed: () {
+
                   print("here it is =>> ${_module.unit}");
                   String price = _priceController.text.trim();
                   String discount = _discountController.text.trim();

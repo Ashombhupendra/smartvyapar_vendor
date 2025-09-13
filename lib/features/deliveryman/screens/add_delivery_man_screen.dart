@@ -98,7 +98,7 @@ class _AddDeliveryManScreenState extends State<AddDeliveryManScreen> {
                     )),
                     const SizedBox(height: Dimensions.paddingSizeExtraSmall),
                     Align(alignment: Alignment.center, child: Text(
-                      '(${'max_size_2_mb'.tr})',
+                      '(${'max_size_10_mb'.tr})',
                       style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: Theme.of(context).colorScheme.error),
                     )),
                     const SizedBox(height: Dimensions.paddingSizeSmall),

@@ -129,7 +129,7 @@ class StoreService implements StoreServiceInterface {
     XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(pickImage != null) {
       pickImage.length().then((value) {
-        if (value > 2000000) {
+        if (value > 10000000) {
           showCustomSnackBar('please_upload_lower_size_file'.tr);
         } else {
           return pickImage;
@@ -138,7 +138,22 @@ class StoreService implements StoreServiceInterface {
     }
     return pickImage;
   }
-
+  @override
+  Future<XFile?> pickImage(ImageSource source) async {
+    XFile? pickImage = await ImagePicker().pickImage(source: source
+    ,imageQuality: 85,
+      maxWidth: 1024,
+      maxHeight: 1024,
+    );
+    if (pickImage != null) {
+      int fileSize = await pickImage.length();
+      if (fileSize > 10000000) {  // 10MB limit
+        showCustomSnackBar('please_upload_lower_size_file'.tr, isError: true);
+        return null;
+      }
+    }
+    return pickImage;
+  }
   @override
   bool hasAttributeData(List<AttributeModel>? attributeList){
     bool hasData = false;

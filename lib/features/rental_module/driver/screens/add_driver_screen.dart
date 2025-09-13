@@ -187,11 +187,13 @@ class _AddDriverScreenState extends State<AddDriverScreen> {
                         child: InkWell(
                           onTap: () => driverController.pickImage(),
                           child: DottedBorder(
-                            borderType: BorderType.RRect,
-                            radius: const Radius.circular(Dimensions.radiusDefault),
-                            dashPattern: const [8, 4],
-                            strokeWidth: 1,
-                            color: Get.isDarkMode ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFE5E5E5),
+                            options: RectDottedBorderOptions(
+                              //borderType: BorderType.RRect,
+                              //radius: const Radius.circular(Dimensions.radiusDefault),
+                              dashPattern: const [8, 4],
+                              strokeWidth: 1,
+                              color: Get.isDarkMode ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFE5E5E5),
+                            ),
                             child: (driverController.profileImage != null) || (widget.driver?.imageFullUrl != null) ? const SizedBox() : Container(
                               height: 130, width: 120,
                               decoration: BoxDecoration(
@@ -299,11 +301,13 @@ class _AddDriverScreenState extends State<AddDriverScreen> {
                                   }
                                 },
                                 child: DottedBorder(
-                                  borderType: BorderType.RRect,
-                                  radius: const Radius.circular(Dimensions.radiusDefault),
-                                  dashPattern: const [8, 4],
-                                  strokeWidth: 1,
-                                  color: Get.isDarkMode ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFE5E5E5),
+                                  options: RectDottedBorderOptions(
+                                    //borderType: BorderType.RRect,
+                                    //radius: const Radius.circular(Dimensions.radiusDefault),
+                                    dashPattern: const [8, 4],
+                                    strokeWidth: 1,
+                                    color: Get.isDarkMode ? Colors.white.withValues(alpha: 0.2) : const Color(0xFFE5E5E5),
+                                  ),
                                   child: Container(
                                     height: 130, width: 220,
                                     decoration: BoxDecoration(
@@ -330,11 +334,13 @@ class _AddDriverScreenState extends State<AddDriverScreen> {
                               );
                             }
                             return DottedBorder(
-                              borderType: BorderType.RRect,
-                              radius: const Radius.circular(Dimensions.radiusDefault),
-                              dashPattern: const [8, 4],
-                              strokeWidth: 1,
-                              color: const Color(0xFFE5E5E5),
+                              options: RectDottedBorderOptions(
+                                //borderType: BorderType.RRect,
+                                //radius: const Radius.circular(Dimensions.radiusDefault),
+                                dashPattern: const [8, 4],
+                                strokeWidth: 1,
+                                color: const Color(0xFFE5E5E5),
+                              ),
                               child: SizedBox(
                                 width: 220,
                                 child: Stack(children: [
